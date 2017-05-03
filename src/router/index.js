@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/views/index'
-
+import Index from '@/views/Index'
+import NewBottle from '@/views/NewBottle'
+import Details from '@/views/Details'
 Vue.use(Router)
 
 export default new Router({
@@ -9,7 +10,17 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: index
+      component: Index
+    },
+    {
+      path: '/newbottle',
+      name: '新建bottle',
+      component: NewBottle
+    },
+    {
+      path: '/details',
+      name: '详情页',
+      component: Details
     }
   ]
 })

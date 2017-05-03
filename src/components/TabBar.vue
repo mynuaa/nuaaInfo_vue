@@ -1,7 +1,7 @@
 <template>
   <div class="tabbar">
-      <span @click="">更多</span>
-      <span class="split" @click="">消息</span>
+      <span>更多</span>
+      <span class="split" ><router-link :to="{path: '/details'}">消息</router-link></span>
   </div>
 </template>
 
