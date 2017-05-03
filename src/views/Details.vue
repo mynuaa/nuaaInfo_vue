@@ -3,8 +3,9 @@
     <div class="da-header">
       <button @click="$router.back(-1)"><i class="fa fa-chevron-left fa-5x"></i></button>
     </div>
-    <card></card>
+    <card :item="data"></card>
     <div class="comments">
+      <comment v-for="comment in comments" :comment="comment"></comment>
     </div>
     <div class="newComments">
       <input type="text" placeholder="发布评论">
@@ -17,10 +18,49 @@
 
 <script>
   import Card from '@/views/Card'
+  import Comment from '@/views/Comment'
 
   export default {
     components: {
-      Card
+      Card,
+      Comment
+    },
+    data () {
+      return {
+        data: {},
+        comments: []
+      }
+    },
+    methods: {
+      getBottle: function () {
+        this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
+          this.data = response.data.data;
+//          let date = new Date();
+//          let now = parseInt(date.getTime()/1000);
+//          let result = now - this.data.date;
+//          if(result < 60){
+//            this.data.date = result+"秒前";
+//          }else if((result/60) <= 60){
+//            this.data.date = parseInt(result/60) + "分钟前";
+//          }else if((result/3600) <= 60){
+//            this.data.date = parseInt(result/3600) +"小时前";
+//          }else{
+//            this.data.date = parseInt(result/86400) + "天前"
+//          }
+          var date = this.$moment(this.data.date, 'X').fromNow();
+          console.log(date);
+        })
+      },
+      getComments: function () {
+        this.axios.get('/bottle-new/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
+          this.comments = response.data.data;
+          console.log(this.comments);
+        })
+      }
+    },
+    mounted () {
+      this.getBottle();
+      this.getComments();
     }
   }
 </script>
@@ -41,8 +81,6 @@
 }
 .comments {
   width: 100%;
-  height: 500px;
-  background-color: lightgray;
 }
 input {
   outline: none;

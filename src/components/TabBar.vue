@@ -16,15 +16,16 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
-  min-height: 140px;
+  min-height: 100px;
   border-top: 1px solid;
+  background-color: white;
 }
 .tabbar>span {
   display: inline-block;
   text-align: center;
   width: 49%;
-  font-size: 3em;
-  line-height: 140px;
+  font-size: 2em;
+  line-height: 100px;
 }
 .split {
   border-left: 1px solid;

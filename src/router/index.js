@@ -18,7 +18,7 @@ export default new Router({
       component: NewBottle
     },
     {
-      path: '/details',
+      path: '/details/:id',
       name: '详情页',
       component: Details
     }

@@ -3,40 +3,48 @@
     <div class="header">
       <span class="avatar"></span>
       <span class="info">
-        <span class="name">某同学</span>
-        <span class="date">一天前</span>
+        <span class="name">{{item.nickname}}</span>
+        <span class="date">{{item.date | fromNow}}</span>
       </span>
       <span class="share">
-        <i class="fa fa-share fa-2x"></i>
+        <i class="fa fa-share fa-1x"></i>
       </span>
     </div>
-    <div class="content" @click="toDetails()">
-      <p>
-        于老板是我的RBQ
-      </p>
+    <div class="content" @click="toDetails(item.id)">
+      <p>{{item.content}}</p>
     </div>
     <div class="footer">
-      <span class="like" @click="like()">
-        <i class="fa fa-heart fa-4x"></i>
-      </span>
-      <span class="comment" @click="comment">
-        <i class="fa fa-comment fa-4x"></i>
-      </span>
+      <div class="like">
+        <i class="fa fa-heart fa-2x" @click="like()"></i>
+        <span class="like-nums">{{item.islike}}</span>
+      </div>
+      <div class="toComment">
+        <i class="fa fa-comment fa-2x" @click="comment(item.id)"></i>
+        <span class="comment-nums">{{item.commentCount}}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    item: Object
+  },
+  data () {
+    return {
+
+    }
+  },
   methods: {
-    toDetails: function () {
-      this.$router.push('/details');
+    toDetails: function (id) {
+      this.$router.push('/details/' + id);
     },
     like: function () {
       console.log('stop here')
     },
-    comment: function () {
-      this.$router.push('/details')
+    comment: function (id) {
+      this.$router.push('/details/' + id)
     }
   }
 }
@@ -44,22 +52,15 @@ export default {
 
 <style>
   .card {
-    min-height: 500px;
-    width: 100%;
     background-color: dimgray;
-    padding-top: 1px;
-    padding-bottom: 1px;
     position: relative;
+    padding: 20px 40px 0 40px;
+    margin-bottom: 60px;
   }
   .header span {
     display: inline-block;
     color: white;
     font-size: 1.8rem;
-  }
-  .header {
-    width: 95%;
-    padding: 23px;
-    position: absolute;
   }
   .avatar {
     background-color: white;
@@ -69,42 +70,47 @@ export default {
   }
   .info {
     height: 100px;
-    width: 130px;
+    width: 260px;
     vertical-align: top;
     margin-left: 20px;
   }
   .info span {
-    width: 130px;
+    width: 260px;
+  }
+  .info .date {
+    color: lightgray;
+    padding-top: 10px;
   }
   .share {
     vertical-align: top;
     float: right;
     padding: 4px;
   }
+  /*内容部分*/
   .content {
-    margin: 127px 20px;
-    padding: 50px;
-    min-height: 200px;
   }
-  .content>p{
-    width: 100%;
+  .content p{
     display: inline-block;
     font-size: 2rem;
     color: white;
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
   }
-
+/*评论点赞*/
   .footer {
-    min-height: 80px;
-    width: 100%;
-    margin: 0 20px 20px 0;
-    position: absolute;
-    bottom: 0;
-  }
-  .footer > span {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     color: white;
-    float: right;
-    padding: 0 35px 0 40px;
+    padding: 20px 0;
+    border-top: 0.5px solid ghostwhite;
+  }
+  .footer div {
+    display: inline-block;
+  }
+  .like, .toComment{
+    margin: 20px 0 0 20px;
+  }
+  .like-nums, .comment-nums {
+    font-size: 2rem;
+    margin: 20px 0 0 20px;
   }
 </style>
