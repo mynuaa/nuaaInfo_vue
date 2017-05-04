@@ -35,18 +35,6 @@
       getBottle: function () {
         this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
           this.data = response.data.data;
-//          let date = new Date();
-//          let now = parseInt(date.getTime()/1000);
-//          let result = now - this.data.date;
-//          if(result < 60){
-//            this.data.date = result+"秒前";
-//          }else if((result/60) <= 60){
-//            this.data.date = parseInt(result/60) + "分钟前";
-//          }else if((result/3600) <= 60){
-//            this.data.date = parseInt(result/3600) +"小时前";
-//          }else{
-//            this.data.date = parseInt(result/86400) + "天前"
-//          }
           var date = this.$moment(this.data.date, 'X').fromNow();
           console.log(date);
         })

@@ -15,7 +15,7 @@
     </div>
     <div class="footer">
       <div class="like">
-        <i class="fa fa-heart fa-2x" @click="like()"></i>
+        <i class="fa fa-heart fa-2x" @click="like(item.id)" :class="{'likeit': islike, '': !islike}"></i>
         <span class="like-nums">{{item.islike}}</span>
       </div>
       <div class="toComment">
@@ -33,14 +33,31 @@ export default {
   },
   data () {
     return {
-
+      islike: false
     }
   },
   methods: {
     toDetails: function (id) {
       this.$router.push('/details/' + id);
     },
-    like: function () {
+    like: function (id) {
+      let url = 'bottle-new/api/?_action=getLike&id='+id;
+      this.axios.defaults.withCredentials = true
+      this.axios.get(url).then((response) => {
+        console.log(response)
+        if(response.data.code != undefined){
+          if(response.data.code === 2) {
+            console.log(response.data);
+            let back_url = 'http://localhost:8080/#' + this.$route.path;
+            console.log(back_url);
+            let login_url = 'http://my.nuaa.edu.cn/sso/?page=login&redirect_uri=' + btoa(back_url);
+            console.log(login_url);
+            //window.location.href = login_url;
+          }
+          this.islike = true;
+          this.item.islike++;
+        }
+      })
       console.log('stop here')
     },
     comment: function (id) {
@@ -112,5 +129,8 @@ export default {
   .like-nums, .comment-nums {
     font-size: 2rem;
     margin: 20px 0 0 20px;
+  }
+  .likeit {
+    color: red;
   }
 </style>

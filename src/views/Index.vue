@@ -3,11 +3,13 @@
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
-      infinite-scroll-distance="100">
+      infinite-scroll-distance="100"
+      @touchstart="handleTouchstart"
+      @touchmove="handleTouchmove">
       <card v-for="item in data" :item="item"></card>
     </div>
-    <router-link :to="{path: '/newbottle'}"><palette-button class="new"></palette-button></router-link>
-    <tab-bar></tab-bar>
+    <router-link :to="{path: '/newbottle'}"><palette-button class="new" :class="{'newHide': !show, '':show}"></palette-button></router-link>
+    <tab-bar :show="show"></tab-bar>
   </div>
 </template>
 
@@ -26,7 +28,9 @@ export default {
     return {
       loading: false,
       data: [],
-      lastId: 999999
+      lastId: 999999,
+      oldScreenX: 0,
+      show: true
     }
   },
   methods: {
@@ -45,6 +49,19 @@ export default {
     loadMore: function () {
       this.loading = true;
       this.getBottles(this.lastId);
+    },
+    handleTouchstart: function (event) {
+      this.oldScreenX = event.touches[0].screenX
+    },
+    handleTouchmove: function (event) {
+      console.log(event)
+      let move = event.touches[0].screenX - this.oldScreenX;
+      if( move > 3) {
+        this.show = false;
+        this.oldScreenX = event.touches[0].screenX;
+      }else if(move < -3) {
+        this.show = true;
+      }
     }
   },
   mounted() {
@@ -59,5 +76,9 @@ export default {
   z-index: 999;
   bottom: 220px;
   right:80px;
+  transition: all 0.5s;
+}
+.newHide {
+  bottom: -300px
 }
 </style>
