@@ -1,7 +1,7 @@
 <template>
   <div class="tabbar" :class="{'hide': !show, '': show}">
       <span>更多</span>
-      <span class="split" ><router-link :to="{path: '/details'}">消息</router-link></span>
+      <span class="split" ><router-link :to="{path: '/mybottles'}">消息</router-link></span>
   </div>
 </template>
 

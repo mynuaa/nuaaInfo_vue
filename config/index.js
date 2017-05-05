@@ -28,7 +28,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/bottle-new': {
+      '/bottle-new/api': {
+        target: 'http://my.nuaa.edu.cn',
+        changeOrigin: true
+      },
+      '/sso/': {
         target: 'http://my.nuaa.edu.cn',
         changeOrigin: true
       }

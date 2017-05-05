@@ -8,8 +8,8 @@
       <comment v-for="comment in comments" :comment="comment"></comment>
     </div>
     <div class="newComments">
-      <input type="text" placeholder="发布评论">
-      <button>
+      <input type="text" placeholder="发布评论" v-model="newComment.content">
+      <button @click="sendComment">
         <i class="fa fa-paper-plane-o fa-4x"></i>
       </button>
     </div>
@@ -28,7 +28,13 @@
     data () {
       return {
         data: {},
-        comments: []
+        comments: [],
+        newComment: {
+          postId: 0,
+          content: '',
+          secret: true,
+          gender: 1,
+        }
       }
     },
     methods: {
@@ -36,13 +42,29 @@
         this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
           this.data = response.data.data;
           var date = this.$moment(this.data.date, 'X').fromNow();
-          console.log(date);
+          this.newComment.postId = this.data.id;
         })
       },
       getComments: function () {
         this.axios.get('/bottle-new/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
           this.comments = response.data.data;
           console.log(this.comments);
+        })
+      },
+      sendComment: function () {
+        if(this.newComment.content === '')
+          return;
+        this.axios.post('/bottle-new/api/?_action=postComment', this.newComment).then((response) => {
+          if(response.data.code === 2) {
+            console.log(response.data);
+            let back_url = '/#' + this.$route.path;
+            console.log(back_url);
+            let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
+            console.log(login_url);
+            window.location.href = login_url;
+          }
+          console.log(response);
+          this.getBottle();
         })
       }
     },

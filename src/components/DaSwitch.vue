@@ -8,7 +8,7 @@
 <script>
 export default {
   props: {
-    value: Boolean
+    value: Number
   },
   data() {
     return {
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     changeActive: function (active) {
-      this.currentValue = !active;
+      this.currentValue = active ? 0 : 1;
     }
   }
 }

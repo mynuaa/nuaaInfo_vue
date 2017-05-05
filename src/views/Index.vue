@@ -3,7 +3,7 @@
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
-      infinite-scroll-distance="100"
+      infinite-scroll-distance="10"
       @touchstart="handleTouchstart"
       @touchmove="handleTouchmove">
       <card v-for="item in data" :item="item"></card>
@@ -44,6 +44,7 @@ export default {
         this.data = this.data.concat(response.data.data);
         this.lastId = this.data[this.data.length-1].id;
         this.loading = false;
+        console.log(this.data)
       })
     },
     loadMore: function () {

@@ -25,16 +25,10 @@ export default {
 <style>
 .comment {
   margin-top: 4rem;
-  min-height:200px;
   background-color: #fff;
 }
 .comment .header span{
   color: black;
-}
-.comment .content {
-  min-height:0;
-  margin: 127px 0 0 0;
-  padding: 20px;
 }
 .comment .content p {
   color: #000;
