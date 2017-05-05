@@ -11,13 +11,13 @@
       </span>
     </div>
     <div class="content">
-      <router-link :to="{'path': '/topics/'+item.topic[1]}">{{item.topic[0]}}</router-link>
+      <router-link :to="{'path': '/topics/'+topic[1]}">{{topic[0]}}</router-link>
       <p @click="toDetails(item.id)">{{item.content}}</p>
     </div>
     <div class="footer">
       <div class="like">
         <i class="fa fa-heart fa-2x" @click="like(item.id)" :class="{'likeit': islike, '': !islike}"></i>
-        <span class="like-nums">{{item.islike}}</span>
+        <span class="like-nums">{{item.likeCount}}</span>
       </div>
       <div class="toComment">
         <i class="fa fa-comment fa-2x" @click="comment(item.id)"></i>
@@ -35,8 +35,9 @@ export default {
   },
   data () {
     return {
+      data: this.item,
       islike: false,
-      thetopic: ''
+      topic: ['', '']
     }
   },
   methods: {
@@ -57,10 +58,9 @@ export default {
             window.location.href = login_url;
           }
           this.islike = true;
-          this.item.islike++;
+          this.item.likeCount++;
         }
       })
-      console.log('stop here')
     },
     comment: function (id) {
       this.$router.push('/details/' + id)
@@ -73,18 +73,19 @@ export default {
       let site = 'my.nuaa.edu.cn';
       let pics = encodeURIComponent(this.item.avatar);
       let share_url = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+back_url+'&title='+title+'&desc=&summary='+summary+'&site='+site+'&pics='+pics;
-      console.log('+++++++++++++++++++++++++++++++++');
-      console.log(share_url)
       window.location.href = share_url;
     }
   },
-  created () {
+  created: function () {
     let format = /^#(.+)#/;
-    if(format.test(this.item.content)){
-      this.item.topic = format.exec(this.item.content);
-      this.item.content = this.item.content.replace(format , '');
+    console.log(this.data);
+    if(format.test(this.data.content)){
+      console.log('here')
+      this.topic = format.exec(this.data.content);
+      this.data.content = this.data.content.replace(format , '');
     }else {
-      this.item.topic = ['', ''];
+      console.log('no format')
+      this.data.topic = ['', '', ''];
     }
   }
 }
@@ -96,6 +97,7 @@ export default {
     position: relative;
     padding: 20px 40px 0 40px;
     margin-bottom: 60px;
+    box-shadow: 0 0 15px dimgray;
   }
   .header span {
     display: inline-block;
@@ -136,7 +138,7 @@ export default {
   .content a{
     display: inline-block;
     margin-top: 30px;
-
+    color: limegreen;
   }
 /*评论点赞*/
   .footer {

@@ -69,8 +69,8 @@
         }
       }
     },
-    mounted() {
-
+    created () {
+      document.title = this.$route.params.topic;
     }
   }
 </script>

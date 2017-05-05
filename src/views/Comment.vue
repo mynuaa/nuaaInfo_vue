@@ -10,7 +10,6 @@
     <div class="content">
       <p>{{comment.content}}</p>
     </div>
-    <hr>
   </div>
 </template>
 
@@ -24,11 +23,15 @@ export default {
 
 <style>
 .comment {
-  margin-top: 4rem;
+  margin-bottom: 22px;
   background-color: #fff;
+  padding: 20px 40px;
 }
 .comment .header span{
   color: black;
+}
+.comment .header .avatar {
+  box-shadow: 0 0 15px grey;
 }
 .comment .content p {
   color: #000;

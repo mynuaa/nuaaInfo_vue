@@ -76,8 +76,8 @@
         }
       }
     },
-    mounted() {
-
+    created () {
+      document.title = '我的Bottles'
     }
   }
 </script>

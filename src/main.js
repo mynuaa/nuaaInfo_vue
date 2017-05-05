@@ -9,12 +9,14 @@ import 'mint-ui/lib/style.min.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Moment from 'moment'
+import vSelect from 'vue-select'
 
 Object.defineProperty(Vue.prototype, '$moment', {value: Moment});
 Vue.prototype.$moment.locale('zh-cn');
 Vue.use(VueAxios, axios);
 Vue.use(Mint);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.component('v-select', vSelect);
 
 Vue.filter('fromNow', function(value){
   return Moment(value, 'X').fromNow();

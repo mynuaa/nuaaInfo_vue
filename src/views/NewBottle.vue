@@ -6,6 +6,7 @@
         </div>
         <div class="da-form">
           <label for="newTopic">话题</label>
+          <!--<rs-select :options="topicOp" :value="topic" :placeholder="placeholder"></rs-select>-->
           <select v-model="topic" class="newTopic" id="newTopic">
             <option>你有我没有</option>
             <option>我最想对你说</option>
@@ -32,10 +33,12 @@
 
   <script>
   import DaSwitch from '@/components/DaSwitch'
+  import RsSelect from '@/components/rs-select'
 
   export default {
     components: {
-      DaSwitch
+      DaSwitch,
+      RsSelect
     },
     data() {
       return {
@@ -44,6 +47,13 @@
           secret: 1,
           gender: 1
         },
+        topicOp: [
+          '你有我没有',
+          '我对南航说',
+          '我最想对你说',
+          '对学弟学妹的忠告'
+        ],
+        placeholder: '可以选择一个主题哦',
         topic: '我对南航说'
       }
     },
@@ -69,6 +79,9 @@
       back: function () {
         this.$router.back(-1);
       }
+    },
+    created () {
+      document.title = '新建 Bottle'
     }
   }
   </script>

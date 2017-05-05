@@ -55,7 +55,6 @@ export default {
       this.oldScreenX = event.touches[0].screenX
     },
     handleTouchmove: function (event) {
-      console.log(event)
       let move = event.touches[0].screenX - this.oldScreenX;
       if( move > 3) {
         this.show = false;
@@ -66,7 +65,10 @@ export default {
     }
   },
   mounted() {
-    this.getBottles();
+    console.log('parent mounted')
+  },
+  created(){
+    document.title = '南航-Bottle'
   }
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div class="details">
     <div class="da-header">
-      <button @click="$router.back(-1)"><i class="fa fa-chevron-left fa-5x"></i></button>
+      <button @click="$router.back(-1)"><i class="fa fa-chevron-left fa-4x"></i></button>
     </div>
-    <card :item="data"></card>
+    <card v-if="data.content":item="data" class="details-card"></card>
     <div class="comments">
       <comment v-for="comment in comments" :comment="comment"></comment>
     </div>
@@ -40,8 +40,8 @@
     methods: {
       getBottle: function () {
         this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
+          console.log(response)
           this.data = response.data.data;
-          var date = this.$moment(this.data.date, 'X').fromNow();
           this.newComment.postId = this.data.id;
         })
       },
@@ -63,23 +63,36 @@
             console.log(login_url);
             window.location.href = login_url;
           }
-          console.log(response);
+          this.newComment.content = '';
           this.getBottle();
+          this.getComments();
         })
       }
     },
-    mounted () {
+    created () {
+      document.title = '一个有趣的瓶子'
       this.getBottle();
       this.getComments();
+    },
+    mounted () {
+      console.log('mounted')
     }
   }
 </script>
 
 <style>
+.details {
+  margin-top: 120px;
+  margin-bottom: 200px;
+}
 .da-header {
   height: 100px;
   width: 100%;
   background: rgb(66, 185, 131);
+  box-shadow: 0 0 15px rgb(66, 185, 131);
+  position: fixed;
+  top: 0;
+  z-index:1;
 }
 .da-header button{
   outline: none;
@@ -107,7 +120,7 @@ input {
 .newComments input{
   height: 80px;
   width: 80%;
-  padding: 10px 30px;
+  padding: 10px 12px;
   font-size: 2.5rem;
   display: inline-block;
   border: none;
