@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="header">
-      <span class="avatar"></span>
+      <span class="avatar" :style="{background: 'url('+ item.avatar +')'}"></span>
       <span class="info">
         <span class="name">{{item.nickname}}</span>
         <span class="date">{{item.date | fromNow}}</span>
@@ -12,7 +12,7 @@
     </div>
     <div class="content">
       <router-link :to="{'path': '/topics/'+topic[1]}">{{topic[0]}}</router-link>
-      <p @click="toDetails(item.id)">{{item.content}}</p>
+      <p @click="toDetails(item.id)">{{item.content | getTopic}}</p>
     </div>
     <div class="footer">
       <div class="like">
@@ -37,7 +37,31 @@ export default {
     return {
       data: this.item,
       islike: false,
-      topic: ['', '']
+      topic: ['', '', '']
+    }
+  },
+  watch: {
+      data: function () {
+        let format = /^#(.+)#/;
+        console.log(this.data);
+        if(format.test(this.data.content)){
+          console.log('here')
+          this.topic = format.exec(this.data.content);
+          this.data.content = this.data.content.replace(format , '');
+        }else {
+          console.log('no format')
+          this.data.topic = ['', '', ''];
+        }
+      }
+  },
+  filters: {
+    getTopic: function (val, topic) {
+      let format = /^#(.+)#/;
+      if(format.test(val)){
+        val = val.replace(format , '');
+        return val;
+      }
+      return val
     }
   },
   methods: {
@@ -76,7 +100,7 @@ export default {
       window.location.href = share_url;
     }
   },
-  created: function () {
+  mounted: function () {
     let format = /^#(.+)#/;
     console.log(this.data);
     if(format.test(this.data.content)){
@@ -98,6 +122,7 @@ export default {
     padding: 20px 40px 0 40px;
     margin-bottom: 60px;
     box-shadow: 0 0 15px dimgray;
+    max-width:800px;
   }
   .header span {
     display: inline-block;

@@ -1,7 +1,7 @@
 <template>
   <div class="details">
     <div class="da-header">
-      <button @click="$router.back(-1)"><i class="fa fa-chevron-left fa-4x"></i></button>
+      <button @click="$router.back(-1)"><i class="fa fa-chevron-left fa-2x"></i></button>
     </div>
     <card v-if="data.content":item="data" class="details-card"></card>
     <div class="comments">
@@ -40,7 +40,6 @@
     methods: {
       getBottle: function () {
         this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
-          console.log(response)
           this.data = response.data.data;
           this.newComment.postId = this.data.id;
         })
@@ -48,7 +47,6 @@
       getComments: function () {
         this.axios.get('/bottle-new/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
           this.comments = response.data.data;
-          console.log(this.comments);
         })
       },
       sendComment: function () {
@@ -56,11 +54,8 @@
           return;
         this.axios.post('/bottle-new/api/?_action=postComment', this.newComment).then((response) => {
           if(response.data.code === 2) {
-            console.log(response.data);
             let back_url = '/#' + this.$route.path;
-            console.log(back_url);
             let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
-            console.log(login_url);
             window.location.href = login_url;
           }
           this.newComment.content = '';
@@ -86,18 +81,19 @@
   margin-bottom: 200px;
 }
 .da-header {
-  height: 100px;
+  height: 80px;
   width: 100%;
   background: rgb(66, 185, 131);
   box-shadow: 0 0 15px rgb(66, 185, 131);
   position: fixed;
   top: 0;
   z-index:1;
+  transition: all 0.5s;
 }
 .da-header button{
   outline: none;
   border: none;
-  height: 100px;
+  height: 80px;
   width: 100px;
   background-color: rgba(0, 0, 0, 0);
   color: white;
@@ -111,24 +107,24 @@ input {
 .newComments {
   position: fixed;
   width: 100%;
-  height: 120px;
+  height: 80px;
   bottom: 0;
-  border-top: 1px solid black;
+  box-shadow: 0 0 15px grey;
   padding: 20px 0 8px 20px;
   background-color: white;
 }
 .newComments input{
-  height: 80px;
+  height: 60px;
   width: 80%;
-  padding: 10px 12px;
-  font-size: 2.5rem;
+  padding: 8px 12px;
+  font-size: 1.5rem;
   display: inline-block;
   border: none;
   border-radius: 20px;
   background-color: lightgray;
 }
 .newComments button{
-  height: 120px;
+  height: 80px;
   width: 120px;
   position: absolute;
   right: 20px;

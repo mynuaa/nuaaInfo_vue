@@ -1,6 +1,6 @@
 <template>
   <div class="palette-button">
-    <i class="fa fa-plus fa-5x">
+    <i class="fa fa-plus fa-2x">
     </i>
   </div>
 </template>
@@ -14,9 +14,9 @@ export default {
   .palette-button {
     height: 150px;
     width: 150px;
-    border: 1px;
     border-radius: 100%;
-    background-color: limegreen;
+    box-shadow: 0 0 15px  rgb(66, 185, 131);
+    background-color: rgb(66, 185, 131);
     color: white;
     text-align: center;
   }

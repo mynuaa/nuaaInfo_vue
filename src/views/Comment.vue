@@ -1,7 +1,7 @@
 <template>
   <div class="card comment">
     <div class="header">
-      <span class="avatar"></span>
+      <span class="avatar" :style="{background: 'url('+ comment.avatar +')'}"></span>
       <span class="info">
         <span class="name">{{comment.nickname}}</span>
         <span class="date">{{comment.date | fromNow}}</span>

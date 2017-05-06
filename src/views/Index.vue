@@ -1,5 +1,14 @@
 <template>
-  <div>
+  <div class="index-container" @click="topicShow=false">
+    <div class="da-header" :class="{'headerHide': !show, '':show}">
+      <span class="to-topics" @click.stop="topicShow=true" @blur="topicShow=false">#话题#</span>
+      <ul class="topics" v-if="topicShow">
+        <li><router-link to="/topics/你有我没有">你有我没有</router-link></li>
+        <li><router-link to="/topics/我对南航说">我对南航说</router-link></li>
+        <li><router-link to="/topics/对学弟学妹的忠告">对学弟学妹的忠告</router-link></li>
+        <li><router-link to="/topics/我最想对你说">我最想对你说</router-link></li>
+      </ul>
+    </div>
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
@@ -30,7 +39,8 @@ export default {
       data: [],
       lastId: 999999,
       oldScreenX: 0,
-      show: true
+      show: true,
+      topicShow: false
     }
   },
   methods: {
@@ -74,6 +84,33 @@ export default {
 </script>
 
 <style>
+.index-container {
+  margin-top: 80px;
+}
+.to-topics {
+  color: white;
+  float: right;
+  margin-right: 40px;
+  height: 100%;
+  font-size: 1.6rem;
+  line-height: 80px;
+  box-shadow: 0 0 15px white;
+  padding: 0px 20px
+}
+.topics {
+  position: fixed;
+  top: 80px;
+  right: 0;
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  background-color: white;
+}
+.topics a {
+  display: inline-block;
+  font-size: 1.5rem;
+  padding: 15px 20px;
+}
 .new {
   position: fixed;
   z-index: 999;
@@ -82,6 +119,9 @@ export default {
   transition: all 0.5s;
 }
 .newHide {
-  bottom: -300px
+  bottom: -300px;
+}
+.headerHide {
+  top: -100px!important;
 }
 </style>
