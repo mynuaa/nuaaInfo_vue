@@ -123,7 +123,7 @@ export default {
     margin: 0 auto 10px;
     box-shadow: 0 0 15px #8e8e8e;
     max-width:960px;
-    width: 100%;
+    width: 80%;
   }
   .header span {
     color: black;
