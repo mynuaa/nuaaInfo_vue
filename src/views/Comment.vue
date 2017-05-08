@@ -1,7 +1,7 @@
 <template>
-  <div class="card comment">
+  <div class="comment">
     <div class="header">
-      <span class="avatar" :style="{background: 'url('+ comment.avatar +')'}"></span>
+      <span class="avatar"></span>
       <span class="info">
         <span class="name">{{comment.nickname}}</span>
         <span class="date">{{comment.date | fromNow}}</span>
@@ -23,18 +23,22 @@ export default {
 
 <style>
 .comment {
-  margin-bottom: 22px;
-  background-color: #fff;
-  padding: 20px 40px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #F1F1F1;
 }
 .comment .header span{
-  color: black;
+    color: black;
 }
 .comment .header .avatar {
-  box-shadow: 0 0 15px grey;
+    background: url(http://my.nuaa.edu.cn/ucenter/images/noavatar_middle.gif) no-repeat;
+    background-size: cover;
+    width: 30px;
+    height: 30px;
 }
-.comment .content p {
-  color: #000;
+.comment .header .info {
+    margin: 5px 0 0 8px;
 }
-
+.comment .content {
+    padding: 5px 0;
+}
 </style>

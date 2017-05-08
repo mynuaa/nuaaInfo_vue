@@ -1,27 +1,30 @@
 <template>
-  <div class="card">
-    <div class="header">
-      <span class="avatar" :style="{background: 'url('+ item.avatar +')'}"></span>
-      <span class="info">
-        <span class="name">{{item.nickname}}</span>
-        <span class="date">{{item.date | fromNow}}</span>
-      </span>
-      <span class="share" @click="share">
-        <i class="fa fa-share fa-1x"></i>
-      </span>
+  <div class="card" @click.self="toDetails(item.id)">
+    <div class="header" @click.self="toDetails(item.id)">
+      <div class="avatar" :style="{ background: `url(${item.avatar})` }"></div>
+      <div class="info">
+        <div class="name">{{item.nickname}}</div>
+        <div class="date">{{item.date | fromNow}}</div>
+      </div>
+      <div class="share clickable" @click="share">
+        <i class="fa fa-share"></i>
+      </div>
     </div>
-    <div class="content">
-      <router-link :to="{'path': '/topics/'+topic[1]}">{{topic[0]}}</router-link>
+    <div class="content" @click.self="toDetails(item.id)">
+      <router-link :to="`/topics/${topic[1]}`">{{topic[0]}}</router-link>
       <p @click="toDetails(item.id)">{{item.content | getTopic}}</p>
     </div>
-    <div class="footer">
-      <div class="like">
-        <i class="fa fa-heart fa-2x like" @click="like(item.id)" :class="{'likeit': islike, '': !islike}"></i>
-        <span class="like-nums">{{item.likeCount}}</span>
+    <div class="footer" @click.self="toDetails(item.id)">
+      <div class="clickable" @click="like(item.id)">
+        <i class="fa" :class="{
+          'fa-heart liked': islike,
+          'fa-heart-o': !islike
+        }"></i>
+        <span>{{item.likeCount}}</span>
       </div>
-      <div class="toComment">
-        <i class="fa fa-comment fa-2x commentit" @click="comment(item.id)"></i>
-        <span class="comment-nums">{{item.commentCount}}</span>
+      <div class="clickable" @click="comment(item.id)">
+        <i class="fa fa-comment-o"></i>
+        <span>{{item.commentCount}}</span>
       </div>
     </div>
   </div>
@@ -43,13 +46,10 @@ export default {
   watch: {
       data: function () {
         let format = /^#(.+)#/;
-        console.log(this.data);
         if(format.test(this.data.content)){
-          console.log('here')
           this.topic = format.exec(this.data.content);
           this.data.content = this.data.content.replace(format , '');
         }else {
-          console.log('no format')
           this.data.topic = ['', '', ''];
         }
       }
@@ -74,11 +74,8 @@ export default {
       this.axios.get(url).then((response) => {
         if(response.data.code != undefined){
           if(response.data.code === 2) {
-            console.log(response.data);
             let back_url = '/#' + this.$route.path;
-            console.log(back_url);
             let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
-            console.log(login_url);
             window.location.href = login_url;
           }
           this.islike = true;
@@ -90,7 +87,6 @@ export default {
       this.$router.push('/details/' + id)
     },
     share: function () {
-      console.log('to share')
       let back_url = encodeURIComponent(window.location.href);
       let title = '南航Bottle';
       let summary = encodeURIComponent(this.item.title);
@@ -102,13 +98,10 @@ export default {
   },
   mounted: function () {
     let format = /^#(.+)#/;
-    console.log(this.data);
     if(format.test(this.data.content)){
-      console.log('here')
       this.topic = format.exec(this.data.content);
       this.data.content = this.data.content.replace(format , '');
     }else {
-      console.log('no format')
       this.data.topic = ['', '', ''];
     }
   }
@@ -116,84 +109,67 @@ export default {
 </script>
 
 <style>
-  .card {
-    background-color: #f1f1f1;
+.card {
     position: relative;
-    padding: 20px 20px 0 20px;
+    width: calc(100% - 20px);
+    max-width: 960px;
     margin: 0 auto 10px;
-    box-shadow: 0 0 15px #8e8e8e;
-    max-width:960px;
-    width: 80%;
-  }
-  .header span {
-    color: black;
-    padding: 0;
-  }
-  .avatar {
-    background-color: white;
+    padding: 15px 15px 0;
+    box-sizing: border-box;
+    background-color: #FFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.card .header:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.card .header .avatar {
+    background-size: cover !important;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     height: 40px;
     width: 40px;
     border-radius: 100%;
+    float: left;
+}
+.card .header .info {
+    float: left;
+    margin-left: 15px;
+    vertical-align: middle;
+}
+.card .header .info .date {
+    color: silver;
+}
+.card .header .share {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+.card .content {
+    padding: 10px 0;
+}
+.card .content p,
+.card .content a {
+    margin: 3px 0;
+}
+.card .content a {
+    display: block;
+    color: #42B983;
+}
+.card .footer {
+    border-top: 1px solid #F1F1F1;
+    text-align: right;
+}
+.card .footer div {
     display: inline-block;
-  }
-  .info {
-    height: 44px;
-    width: 80%;
-    vertical-align: top;
-    margin-left: 20px;
-    display: inline-block;
-  }
-  .like {
-    color: #354e61;
-  }
-  .commentit {
-    color: #354e61;
-  }
-  .info span {
-    width: 100%;
-  }
-  .info .date {
-    color: #B3B3B3;
-    padding-top: 10px;
-    margin-left: 20px;
-  }
-  .share {
-    vertical-align: top;
-    float: right;
-    padding: 4px;
-  }
-  /*内容部分*/
-  .content {
-
-  }
-  .content p, .content a{
-    color: black;
-    margin: 5px 0;
-  }
-  .content a{
-    display: inline-block;
-    margin-top: 3px;
-    color: limegreen;
-  }
-/*评论点赞*/
-  .footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    color: white;
-    padding: 5px 0;
-    border-top: 0.5px solid ghostwhite;
-  }
-  .footer div {
-    display: inline-block;
-  }
-  .like, .toComment{
-    margin: 10px 0 0 10px;
-  }
-  .like-nums, .comment-nums {
-    margin: 10px 0 0 10px;
-  }
-  .likeit {
-    color: red;
-  }
+    padding: 10px;
+}
+.card .footer .liked {
+    color: #E53935;
+}
 </style>
