@@ -120,9 +120,10 @@ export default {
     background-color: dimgray;
     position: relative;
     padding: 20px 40px 0 40px;
-    margin: 0 auto 60px;
+    margin: 0 auto 30px;
     box-shadow: 0 0 15px dimgray;
-    max-width:800px;
+    max-width:960px;
+    width: 100%;
   }
   .header span {
     display: inline-block;
