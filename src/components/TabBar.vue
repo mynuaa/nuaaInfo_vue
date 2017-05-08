@@ -1,7 +1,7 @@
 <template>
   <div class="tabbar" :class="{'hide': !show, '': show}">
-      <router-link :to="{path: '/'}">首页</router-link>
-      <router-link :to="{path: '/mybottles'}" class="split">我的瓶子</router-link>
+      <router-link :to="{path: '/'}" class="bottom-center">首页</router-link>
+      <router-link :to="{path: '/mybottles'}" class="split bottom-center">我的瓶子</router-link>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   background-color: white;
   transition: all 0.5s;
 }
-.tabbar>span {
+.bottom-center {
   display: inline-block;
   text-align: center;
   width: 49%;

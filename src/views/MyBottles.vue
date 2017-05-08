@@ -86,8 +86,8 @@
   .new {
     position: fixed;
     z-index: 999;
-    bottom: 220px;
-    right:80px;
+    bottom: 51px;
+    right:0px;
     transition: all 0.5s;
   }
   .newHide {

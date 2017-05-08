@@ -16,11 +16,11 @@
     </div>
     <div class="footer">
       <div class="like">
-        <i class="fa fa-heart fa-2x" @click="like(item.id)" :class="{'likeit': islike, '': !islike}"></i>
+        <i class="fa fa-heart fa-2x like" @click="like(item.id)" :class="{'likeit': islike, '': !islike}"></i>
         <span class="like-nums">{{item.likeCount}}</span>
       </div>
       <div class="toComment">
-        <i class="fa fa-comment fa-2x" @click="comment(item.id)"></i>
+        <i class="fa fa-comment fa-2x commentit" @click="comment(item.id)"></i>
         <span class="comment-nums">{{item.commentCount}}</span>
       </div>
     </div>
@@ -117,36 +117,45 @@ export default {
 
 <style>
   .card {
-    background-color: dimgray;
+    background-color: #f1f1f1;
     position: relative;
-    padding: 20px 40px 0 40px;
-    margin: 0 auto 30px;
-    box-shadow: 0 0 15px dimgray;
+    padding: 20px 20px 0 20px;
+    margin: 0 auto 10px;
+    box-shadow: 0 0 15px #8e8e8e;
     max-width:960px;
     width: 100%;
   }
   .header span {
-    display: inline-block;
-    color: white;
+    color: black;
+    padding: 0;
   }
   .avatar {
     background-color: white;
-    height: 100px;
-    width: 100px;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
+    display: inline-block;
   }
   .info {
-    height: 100px;
-    width: 260px;
+    height: 44px;
+    width: 80%;
     vertical-align: top;
     margin-left: 20px;
+    display: inline-block;
+  }
+  .like {
+    color: #354e61;
+  }
+  .commentit {
+    color: #354e61;
   }
   .info span {
-    width: 260px;
+    width: 100%;
   }
   .info .date {
-    color: lightgray;
+    color: #B3B3B3;
     padding-top: 10px;
+    margin-left: 20px;
   }
   .share {
     vertical-align: top;
@@ -155,13 +164,15 @@ export default {
   }
   /*内容部分*/
   .content {
+
   }
   .content p, .content a{
-    color: white;
+    color: black;
+    margin: 5px 0;
   }
   .content a{
     display: inline-block;
-    margin-top: 30px;
+    margin-top: 3px;
     color: limegreen;
   }
 /*评论点赞*/
@@ -170,17 +181,17 @@ export default {
     justify-content: flex-end;
     align-items: center;
     color: white;
-    padding: 20px 0;
+    padding: 5px 0;
     border-top: 0.5px solid ghostwhite;
   }
   .footer div {
     display: inline-block;
   }
   .like, .toComment{
-    margin: 20px 0 0 20px;
+    margin: 10px 0 0 10px;
   }
   .like-nums, .comment-nums {
-    margin: 20px 0 0 20px;
+    margin: 10px 0 0 10px;
   }
   .likeit {
     color: red;

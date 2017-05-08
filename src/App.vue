@@ -22,11 +22,15 @@ body {
   margin: 0;
   font-size: 14px;
 }
+p {
+  font-size: 17px;
+}
 html {
 }
 a, a:hover, a:visited, a:link, a:active{
   text-decoration: none;
   color: black;
+  font-size: 17px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

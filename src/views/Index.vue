@@ -92,7 +92,8 @@ export default {
   float: right;
   margin-right: 40px;
   height: 100%;
-  line-height: 80px;
+  line-height: 51px;
+  font-size: 20px;
   box-shadow: 0 0 15px white;
   padding: 0px 20px
 }
@@ -112,8 +113,8 @@ export default {
 .new {
   position: fixed;
   z-index: 999;
-  bottom: 220px;
-  right:80px;
+  bottom: 51px;
+  right:0px;
   transition: all 0.5s;
 }
 .newHide {

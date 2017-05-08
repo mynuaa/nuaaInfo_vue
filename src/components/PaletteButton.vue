@@ -12,8 +12,8 @@ export default {
 
 <style>
   .palette-button {
-    height: 150px;
-    width: 150px;
+    height: 80px;
+    width: 80px;
     border-radius: 100%;
     box-shadow: 0 0 15px  rgb(66, 185, 131);
     background-color: rgb(66, 185, 131);
@@ -21,6 +21,6 @@ export default {
     text-align: center;
   }
   .palette-button > i {
-    line-height: 150px;
+    line-height: 80px;
   }
 </style>

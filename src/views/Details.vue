@@ -81,7 +81,7 @@
   margin-bottom: 200px;
 }
 .da-header {
-  height: 80px;
+  max-height: 51px;
   width: 100%;
   background: rgb(66, 185, 131);
   box-shadow: 0 0 15px rgb(66, 185, 131);
@@ -93,7 +93,7 @@
 .da-header button{
   outline: none;
   border: none;
-  height: 80px;
+  max-height: 51px;
   width: 100px;
   background-color: rgba(0, 0, 0, 0);
   color: white;
