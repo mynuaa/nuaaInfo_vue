@@ -88,7 +88,6 @@
 
   <style>
   .newBottle{
-    font-size: 2.9rem;
     width: 100%;
     margin-top: 40px;
   }
@@ -105,7 +104,6 @@
   .newTopic {
     height: 4rem;
     vertical-align: middle;
-    font-size: 2rem;
   }
   .newTopic option {
     font-size: 0.5rem;
@@ -115,7 +113,7 @@
     min-height: 300px;
     padding: 8px;
     margin-left: 1.5%;
-    font-size: 3rem !important;
+    font-size: 1.5rem !important;
   }
   .da-form span {
     vertical-align: top;
@@ -132,7 +130,7 @@
   .da-button {
     width: 200px;
     height: 100px!important;
-    font-size: 2rem!important;
+    font-size: 1.2rem!important;
     margin: 50px;
   }
   .action {

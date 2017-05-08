@@ -120,14 +120,13 @@ export default {
     background-color: dimgray;
     position: relative;
     padding: 20px 40px 0 40px;
-    margin-bottom: 60px;
+    margin: 0 auto 60px;
     box-shadow: 0 0 15px dimgray;
     max-width:800px;
   }
   .header span {
     display: inline-block;
     color: white;
-    font-size: 1.8rem;
   }
   .avatar {
     background-color: white;
@@ -157,7 +156,6 @@ export default {
   .content {
   }
   .content p, .content a{
-    font-size: 2rem;
     color: white;
   }
   .content a{
@@ -181,7 +179,6 @@ export default {
     margin: 20px 0 0 20px;
   }
   .like-nums, .comment-nums {
-    font-size: 2rem;
     margin: 20px 0 0 20px;
   }
   .likeit {

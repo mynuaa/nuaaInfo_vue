@@ -20,9 +20,9 @@ export default {
 <style>
 body {
   margin: 0;
+  font-size: 14px;
 }
 html {
-  font-size: 20px;
 }
 a, a:hover, a:visited, a:link, a:active{
   text-decoration: none;

@@ -27,7 +27,6 @@ export default {
   display: inline-block;
   text-align: center;
   width: 49%;
-  font-size: 2em;
   line-height: 100px;
 }
 .split {

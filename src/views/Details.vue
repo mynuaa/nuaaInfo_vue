@@ -117,7 +117,6 @@ input {
   height: 60px;
   width: 80%;
   padding: 8px 12px;
-  font-size: 1.5rem;
   display: inline-block;
   border: none;
   border-radius: 20px;

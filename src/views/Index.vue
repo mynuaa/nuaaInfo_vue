@@ -92,7 +92,6 @@ export default {
   float: right;
   margin-right: 40px;
   height: 100%;
-  font-size: 1.6rem;
   line-height: 80px;
   box-shadow: 0 0 15px white;
   padding: 0px 20px
@@ -108,7 +107,6 @@ export default {
 }
 .topics a {
   display: inline-block;
-  font-size: 1.5rem;
   padding: 15px 20px;
 }
 .new {
