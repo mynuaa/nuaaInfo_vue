@@ -32,9 +32,9 @@
       getBottles: function (id=null) {
         let url;
         if(id === null)
-          url = '/bottle-new/api/?_action=getTopic&topic=' + this.$route.params.topic;
+          url = '/bottle/api/?_action=getTopic&topic=' + this.$route.params.topic;
         else
-          url = '/bottle-new/api/?_action=getTopic&topic=' + this.$route.params.topic + '&id=' + id;
+          url = '/bottle/api/?_action=getTopic&topic=' + this.$route.params.topic + '&id=' + id;
         this.axios.get(url).then((response) => {
           if(response.data.data === undefined)
             return

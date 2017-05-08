@@ -35,20 +35,20 @@
     },
     methods: {
       getBottle: function () {
-        this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
+        this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
           this.data = response.data.data;
           this.newComment.postId = this.data.id;
         })
       },
       getComments: function () {
-        this.axios.get('/bottle-new/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
+        this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
           this.comments = response.data.data;
         })
       },
       sendComment: function () {
         if(this.newComment.content === '')
           return;
-        this.axios.post('/bottle-new/api/?_action=postComment', this.newComment).then((response) => {
+        this.axios.post('/bottle/api/?_action=postComment', this.newComment).then((response) => {
           if(response.data.code === 2) {
             let back_url = '/#' + this.$route.path;
             let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);

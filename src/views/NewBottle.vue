@@ -71,7 +71,7 @@ export default {
       if (this.topic && this.topic.value !== '') {
         this.bottle.content = `#${this.topic.value}# ${this.bottle.content}`;
       }
-      this.axios.post('/bottle-new/api/?_action=postBottle', this.bottle).then(response => {
+      this.axios.post('/bottle/api/?_action=postBottle', this.bottle).then(response => {
         if(response.data.code === 2) {
           let back_url = '/' + this.$route.path;
           let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);

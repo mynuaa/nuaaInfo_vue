@@ -38,7 +38,7 @@ export default {
   methods: {
     getBottles: function (id=null) {
       let url;
-      url = id ? `/bottle-new/api/?_action=getMoreBottles&id=${id}` : '/bottle-new/api/?_action=getMoreBottles';
+      url = id ? `/bottle/api/?_action=getMoreBottles&id=${id}` : '/bottle/api/?_action=getMoreBottles';
       this.axios.get(url).then((response) => {
         this.data = this.data.concat(response.data.data);
         this.lastId = this.data[this.data.length-1].id;

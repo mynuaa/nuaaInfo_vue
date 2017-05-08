@@ -32,9 +32,9 @@
       getBottles: function (id=null) {
         let url;
         if(id === null)
-          url = '/bottle-new/api/?_action=getMyBottles';
+          url = '/bottle/api/?_action=getMyBottles';
         else
-          url = '/bottle-new/api/?_action=getMyBottles' + '&id=' + id;
+          url = '/bottle/api/?_action=getMyBottles' + '&id=' + id;
         this.axios.get(url).then((response) => {
           if(response.data.code === 2) {
             let back_url = '/#' + this.$route.path;

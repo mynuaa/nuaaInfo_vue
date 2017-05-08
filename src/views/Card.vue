@@ -69,7 +69,7 @@ export default {
       this.$router.push('/details/' + id);
     },
     like: function (id) {
-      let url = '/bottle-new/api/?_action=getLike&id='+id;
+      let url = '/bottle/api/?_action=getLike&id='+id;
       this.axios.defaults.withCredentials = true
       this.axios.get(url).then((response) => {
         if(response.data.code != undefined){
