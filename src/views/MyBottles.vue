@@ -60,6 +60,7 @@
 .mybottles h2 {
   max-width: 960px;
   margin: 10px auto 15px;
+  padding: 0 10px;
 }
 .mybottles .card button {
     margin-bottom: 20px;
