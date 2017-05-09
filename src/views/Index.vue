@@ -1,92 +1,65 @@
 <template>
   <div class="index-container" @click="topicShow=false">
-    <div class="da-header" :class="{'headerHide': !show, '':show}">
-      <span class="to-topics" @click.stop="topicShow=true" @blur="topicShow=false">#话题#</span>
-      <ul class="topics" v-if="topicShow">
-        <li><router-link to="/topics/你有我没有">你有我没有</router-link></li>
-        <li><router-link to="/topics/我对南航说">我对南航说</router-link></li>
-        <li><router-link to="/topics/对学弟学妹的忠告">对学弟学妹的忠告</router-link></li>
-        <li><router-link to="/topics/我最想对你说">我最想对你说</router-link></li>
-      </ul>
-    </div>
+    <ul class="topics" v-if="topicShow">
+      <li><router-link to="/topics/你有我没有">你有我没有</router-link></li>
+      <li><router-link to="/topics/我对南航说">我对南航说</router-link></li>
+      <li><router-link to="/topics/对学弟学妹的忠告">对学弟学妹的忠告</router-link></li>
+      <li><router-link to="/topics/我最想对你说">我最想对你说</router-link></li>
+    </ul>
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10"
-      @touchstart="handleTouchstart"
-      @touchmove="handleTouchmove">
-      <card v-for="item in data" :item="item"></card>
+      infinite-scroll-distance="10">
+      <card v-for="item in data" :item="item" :key="item.id"></card>
     </div>
-    <router-link :to="{path: '/newbottle'}"><palette-button class="new" :class="{'newHide': !show, '':show}"></palette-button></router-link>
-    <tab-bar :show="show"></tab-bar>
+    <palette-button :class="{ 'hide': hideNonImportants }"></palette-button>
   </div>
 </template>
 
 <script>
 import PaletteButton from '@/components/PaletteButton'
-import TabBar from '@/components/TabBar'
 import Card from './Card'
 
 export default {
   components: {
     PaletteButton,
-    TabBar,
     Card
   },
   data () {
     return {
       loading: false,
       data: [],
-      lastId: 999999,
-      oldScreenX: 0,
-      show: true,
+      lastId: 9999999,
+      oldScreenY: 0,
+      hideNonImportants: false,
       topicShow: false
     }
   },
   methods: {
     getBottles: function (id=null) {
       let url;
-      if(id === null)
-        url = '/bottle-new/api/?_action=getMoreBottles'
-      else
-        url = '/bottle-new/api/?_action=getMoreBottles&id=' + id;
+      url = id ? `/bottle/api/?_action=getMoreBottles&id=${id}` : '/bottle/api/?_action=getMoreBottles';
       this.axios.get(url).then((response) => {
         this.data = this.data.concat(response.data.data);
         this.lastId = this.data[this.data.length-1].id;
         this.loading = false;
-        console.log(this.data)
       })
     },
     loadMore: function () {
       this.loading = true;
       this.getBottles(this.lastId);
-    },
-    handleTouchstart: function (event) {
-      this.oldScreenX = event.touches[0].screenX
-    },
-    handleTouchmove: function (event) {
-      let move = event.touches[0].screenX - this.oldScreenX;
-      if( move > 3) {
-        this.show = false;
-        this.oldScreenX = event.touches[0].screenX;
-      }else if(move < -3) {
-        this.show = true;
-      }
     }
   },
   mounted() {
-    console.log('parent mounted')
+    window.eventBus.$emit('titleChange', '首页');
+    window.eventBus.$on('hideNonImportants', hide => {
+      this.hideNonImportants = hide;
+    });
   },
-  created(){
-    document.title = '南航-Bottle'
-  }
 }
 </script>
 
 <style>
-.index-container {
-  margin-top: 80px;
-}
 .to-topics {
   color: white;
   float: right;
@@ -109,18 +82,5 @@ export default {
 .topics a {
   display: inline-block;
   padding: 15px 20px;
-}
-.new {
-  position: fixed;
-  z-index: 999;
-  bottom: 51px;
-  right:0px;
-  transition: all 0.5s;
-}
-.newHide {
-  bottom: -300px;
-}
-.headerHide {
-  top: -100px!important;
 }
 </style>

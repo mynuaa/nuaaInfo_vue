@@ -22,6 +22,7 @@ $time = time();
 
 $sql = "INSERT INTO `data` (`title`, `content`, `gender`, `secret`, `avatar`, `userId`, `nickname`, `date`)
         VALUES ('{$content}', '{$content}', '{$gender}', '{$secret}', '{$avatar}', {$user['uid']}, '{$user['username']}', '{$time}')";
+
 DB::query($sql);
 
 $sql = "SELECT `id` FROM `data` where `userId` = {$user['uid']} and `date` = {$time}";
