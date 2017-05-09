@@ -8,7 +8,6 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 if (!isset($_GET['topic'])) {
     Result::error('empty topic');
 }
-
 $topic = addslashes($_GET['topic']);
 
 /*
