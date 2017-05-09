@@ -2,7 +2,7 @@
 
 $user = SSO::getUser();
 if (!$user) {
-    Result::jump(SSO::generateLoginUrl());
+    Result::jump(SSO::generateLoginUrl("http://my.nuaa.edu.cn/bottle/#/"));
 }
 
 if (!isset(Request::$body['content'])) {
@@ -33,16 +33,19 @@ $arrTopic = [];
 preg_match_all("/#(.*?)#/",$content,$arrTopic);
 
 $arrTopic = $arrTopic[1];
-$arrTopic = array_map(function ($arr){
-    global $postedId;
-    global $time;
-    return "('{$arr}', {$postedId}, {$time})";
-},$arrTopic);
 
-$arrTopic = implode(" , ",$arrTopic);
+if(count($arrTopic) != 0){
+    
+    $arrTopic = array_map(function ($arr){
+        global $postedId;
+        global $time;
+        return "('{$arr}', {$postedId}, {$time})";
+    },$arrTopic);
 
-$sql = "INSERT INTO `topic` (`topicName`, `postId`, `date`) VALUES {$arrTopic}";
+    $arrTopic = implode(" , ",$arrTopic);
 
-//2017.5.5 善良单纯的小阿板和猥琐粗俗的达达达曾经在这里进行了艰苦卓绝的前后端联调debug
-
-DB::query($sql) ? Result::success() : Result::error();
+    $sql = "INSERT INTO `topic` (`topicName`, `postId`, `date`) VALUES {$arrTopic}";
+    //2017.5.5 善良单纯的小阿板和猥琐粗俗的达达达曾经在这里进行了艰苦卓绝的前后端联调debug
+    DB::query($sql);
+}
+Result::success();
