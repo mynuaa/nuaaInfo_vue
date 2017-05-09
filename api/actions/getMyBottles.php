@@ -17,11 +17,7 @@ $result = DB::getAll($sql);
 foreach ($result as &$value) {
     $value['title'] = htmlspecialchars($value['title']);
     $value['content'] = htmlspecialchars($value['content']);
-    if ($value['secret'] == 0) {
-        $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
-    } else {
-        genderProcess($value);
-    }
+    $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
 }
 
 Result::success($result);
