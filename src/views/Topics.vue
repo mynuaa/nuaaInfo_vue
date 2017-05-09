@@ -10,12 +10,10 @@
 </template>
 
 <script>
-import PaletteButton from '@/components/PaletteButton'
 import Card from './Card'
 
 export default {
   components: {
-    PaletteButton,
     Card
   },
   data () {

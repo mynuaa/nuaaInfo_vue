@@ -11,17 +11,14 @@
       infinite-scroll-distance="10">
       <card v-for="item in data" :item="item" :key="item.id" class="clickable"></card>
     </div>
-    <palette-button :class="{ 'hide': !show }"></palette-button>
   </div>
 </template>
 
 <script>
-  import PaletteButton from '@/components/PaletteButton'
   import Card from './Card'
 
   export default {
     components: {
-      PaletteButton,
       Card
     },
     data () {
