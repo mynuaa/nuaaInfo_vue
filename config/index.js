@@ -35,6 +35,14 @@ module.exports = {
       '/sso/': {
         target: 'http://my.nuaa.edu.cn',
         changeOrigin: true
+      },
+      '/ucenter': {
+        target: 'http://my.nuaa.edu.cn',
+        changeOrigin: true
+      },
+      '/bottle/static': {
+        target: 'http://my.nuaa.edu.cn',
+        changeOrigin: true
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
