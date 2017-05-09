@@ -1,17 +1,13 @@
 <template>
   <div class="details">
-    <div class="da-header">
-      <button @click="$router.back(-1)"><i class="fa fa-chevron-left fa-2x"></i></button>
+    <card v-if="data.content" :item="data" class="details-card"></card>
+    <div class="comments card">
+      <div v-if="!comments || comments.length === 0" class="no-comment">还没有评论……</div>
+      <comment v-for="comment in comments" :comment="comment" :key="comment.id"></comment>
     </div>
-    <card v-if="data.content":item="data" class="details-card"></card>
-    <div class="comments">
-      <comment v-for="comment in comments" :comment="comment"></comment>
-    </div>
-    <div class="newComments">
+    <div class="new">
       <input type="text" placeholder="发布评论" v-model="newComment.content">
-      <button @click="sendComment">
-        <i class="fa fa-paper-plane-o fa-4x"></i>
-      </button>
+      <i class="fa fa-paper-plane-o" @click="sendComment"></i>
     </div>
   </div>
 </template>
@@ -39,20 +35,20 @@
     },
     methods: {
       getBottle: function () {
-        this.axios.get('/bottle-new/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
+        this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
           this.data = response.data.data;
           this.newComment.postId = this.data.id;
         })
       },
       getComments: function () {
-        this.axios.get('/bottle-new/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
+        this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
           this.comments = response.data.data;
         })
       },
       sendComment: function () {
         if(this.newComment.content === '')
           return;
-        this.axios.post('/bottle-new/api/?_action=postComment', this.newComment).then((response) => {
+        this.axios.post('/bottle/api/?_action=postComment', this.newComment).then((response) => {
           if(response.data.code === 2) {
             let back_url = '/#' + this.$route.path;
             let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
@@ -65,71 +61,46 @@
       }
     },
     created () {
-      document.title = '一个有趣的瓶子'
+      window.eventBus.$emit('titleChange', '一个有趣的瓶子');
       this.getBottle();
       this.getComments();
-    },
-    mounted () {
-      console.log('mounted')
     }
   }
 </script>
 
 <style>
-.details {
-  margin-top: 120px;
-  margin-bottom: 200px;
+.details .no-comment {
+    padding: 0 0 15px;
 }
-.da-header {
-  max-height: 51px;
-  width: 100%;
-  background: rgb(66, 185, 131);
-  box-shadow: 0 0 15px rgb(66, 185, 131);
-  position: fixed;
-  top: 0;
-  z-index:1;
-  transition: all 0.5s;
+.details .new {
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: white;
 }
-.da-header button{
-  outline: none;
-  border: none;
-  max-height: 51px;
-  width: 100px;
-  background-color: rgba(0, 0, 0, 0);
-  color: white;
+.details .new input {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #DDD;
 }
-.comments {
-  width: 100%;
+.details .new input:focus {
+    border-color: #49BB87;
 }
-input {
-  outline: none;
-}
-.newComments {
-  position: fixed;
-  width: 100%;
-  height: 80px;
-  bottom: 0;
-  box-shadow: 0 0 15px grey;
-  padding: 20px 0 8px 20px;
-  background-color: white;
-}
-.newComments input{
-  height: 60px;
-  width: 80%;
-  padding: 8px 12px;
-  display: inline-block;
-  border: none;
-  border-radius: 20px;
-  background-color: lightgray;
-}
-.newComments button{
-  height: 80px;
-  width: 120px;
-  position: absolute;
-  right: 20px;
-  display: inline-block;
-  background-color: rgba(0, 0, 0, 0);
-  border: none;
-  outline: none;
+.details .new i {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    text-align: center;
 }
 </style>

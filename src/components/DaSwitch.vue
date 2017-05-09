@@ -36,26 +36,27 @@ export default {
 <style>
 .switch {
   display: inline-block;
-  height: 80px;
-  width: 180px;
+  height: 20px;
+  width: 50px;
   position: relative;
-  border-radius: 40px;
+  border-radius: 10px;
   transition: background-color 0.3s;
   background-color: limegreen;
-  border: 2px solid #ddd;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .switch.active {
   background-color: white;
 }
 .switch-core {
   display: inline-block;
-  height: 80px;
-  width: 80px;
+  height: 20px;
+  width: 20px;
   border-radius: 100%;
   background-color: white;
   position: absolute;
-  right: 0;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.52);
+  top: -1px;
+  right: -2px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 999;
   transition: all 0.3s;
 }
@@ -76,13 +77,11 @@ export default {
   height: 100%;
   text-align: right;
   line-height: 80px;
-
 }
-.switch.active > .switch-core{
-  right: 100px;
+.switch.active > .switch-core {
+  right: 30px;
 }
-
-.switch-input{
+.switch-input {
   display: none;
 }
 </style>

@@ -22,7 +22,9 @@ DB::connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB, MYSQL_PORT);
 Request::initialize();
 
 // white list
+
 $actionList = ['getBottle', 'getComments', 'getLike', 'getMoreBottles', 'getMyBottles', 'getUser', 'postBottle', 'postComment',"getTopic"];
+
 
 if (!isset($_GET['_action'])) {
     Result::error('missing _action');
