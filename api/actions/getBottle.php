@@ -16,8 +16,7 @@ $result['content'] = htmlspecialchars($result['content']);
 if ($result['secret'] == 0) {
     $result['avatar'] = "/ucenter/avatar.php?uid={$result['userId']}&size=small";
 } else {
-    $result['nickname'] = '某同学';
-    $value['userId'] = '0';
+    require_once('gender.inc.php');
 }
 
 Result::success($result);

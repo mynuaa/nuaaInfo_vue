@@ -2,7 +2,6 @@
 
 $THE_LARGEST_ID = 9999999;
 $PAGE_SIZE = 15;
-$PAGE_SIZE = 8;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 
@@ -16,8 +15,7 @@ foreach ($result as &$value) {
     if ($value['secret'] == 0) {
         $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
     } else {
-        $value['nickname'] = '某同学';
-        $value['userId'] = '0';
+        require_once('gender.inc.php');
     }
 }
 

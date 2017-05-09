@@ -20,7 +20,7 @@ foreach ($result as &$value) {
     if ($value['secret'] == 0) {
         $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
     } else {
-        $value['nickname'] = '某同学';
+        require_once('gender.inc.php');
     }
 }
 
