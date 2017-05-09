@@ -1,7 +1,7 @@
 <?php
 
 if (!SSO::getUser()) {
-    Result::jump(SSO::generateLoginUrl());
+    Result::jump(SSO::generateLoginUrl("http://my.nuaa.edu.cn/bottle/#/"));
 }
 
 if (!isset($_GET['id'])) {

@@ -2,7 +2,7 @@
 
 $user = SSO::getUser();
 if (!$user) {
-    Result::jump(SSO::generateLoginUrl());
+    Result::jump(SSO::generateLoginUrl("http://my.nuaa.edu.cn/bottle/#/"));
 }
 
 if (!isset(Request::$body['postId']) || !isset(Request::$body['content']) || !isset(Request::$body['secret'])) {
