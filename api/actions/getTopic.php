@@ -9,9 +9,10 @@ if (!isset($_GET['topic'])) {
     Result::error('empty topic');
 }
 
+$topic = addslashes($_GET['topic']);
+
 /*
 $topicList = ['你有我没有', '我最想对你说', '我对南航说', '对学弟学妹们的忠告'];
-$topic = addslashes($_GET['topic']);
 
 if (!in_array($topic, $topicList)) {
     Result::error('no topic');
