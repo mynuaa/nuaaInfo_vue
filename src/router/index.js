@@ -13,26 +13,27 @@ export default new Router({
     routes: [{
         path: '/',
         name: 'index',
-        component: Index
-    }, {
-        path: '/newbottle',
-        name: 'newbottle',
-        component: NewBottle
-    }, {
-        path: '/details/:id',
-        name: 'details',
-        component: Details
-    }, {
-        path: '/topics/:topic',
-        name: 'topics',
-        component: Topics
-    }, {
-        path: '/messages',
-        name: 'messages',
-        component: Messages
-    }, {
-        path: '/mybottles',
-        name: 'mybottles',
-        component: MyBottles
+        component: Index,
+        children: [{
+            path: '/newbottle',
+            name: 'newbottle',
+            component: NewBottle
+        }, {
+            path: '/details/:id',
+            name: 'details',
+            component: Details
+        }, {
+            path: '/topics/:topic',
+            name: 'topics',
+            component: Topics
+        }, {
+            path: '/messages',
+            name: 'messages',
+            component: Messages
+        }, {
+            path: '/mybottles',
+            name: 'mybottles',
+            component: MyBottles
+        }]
     }]
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="mybottles">
+  <div class="mybottles index-children">
     <h2>{{user}} 扔过的瓶子们</h2>
     <div class="card" v-if="!loading && data.length === 0">
       <p>你还没有扔过瓶子呢...</p>

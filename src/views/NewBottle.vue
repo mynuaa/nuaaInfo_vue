@@ -1,5 +1,5 @@
 <template>
-  <div class="new-bottle">
+  <div class="new-bottle index-children">
     <textarea v-model="bottle.content" class="newInput" placeholder="我想说的是..."></textarea>
     <div class="da-form">
       <label for="newTopic">话题</label>

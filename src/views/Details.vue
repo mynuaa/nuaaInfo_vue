@@ -1,5 +1,5 @@
 <template>
-  <div class="details">
+  <div class="details index-children">
     <card v-if="data.content" :item="data" class="details-card"></card>
     <div class="comments card">
       <div v-if="!comments || comments.length === 0" class="no-comment">还没有评论……</div>

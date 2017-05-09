@@ -1,5 +1,9 @@
 <template>
-    <div id="app" v-if="gotUser" @touchstart="handleTouchstart" @touchmove="handleTouchmove">
+    <div
+        id="app"
+        v-if="gotUser"
+        @touchstart="handleTouchstart"
+        @touchmove="handleTouchmove">
         <bottle-header :class="{ 'hide': hide }"></bottle-header>
         <router-view></router-view>
         <bottle-footer :class="{ 'hide': hide }"></bottle-footer>

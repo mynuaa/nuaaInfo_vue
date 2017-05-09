@@ -1,12 +1,11 @@
 <template>
-  <div class="topics">
+  <div class="topics index-children">
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10">
       <card v-for="item in data" :item="item" :key="item.id"></card>
     </div>
-    <palette-button :class="{ 'hide': hideNonImportants }"></palette-button>
   </div>
 </template>
 
@@ -26,7 +25,6 @@ export default {
       lastId: 999999,
       show: true,
       topic: null,
-      hideNonImportants: false
     }
   },
   methods: {
@@ -59,11 +57,6 @@ export default {
       this.topic = this.$route.params.topic;
       this.loadMore();
     }
-  },
-  mounted() {
-    window.eventBus.$on('hideNonImportants', hide => {
-      this.hideNonImportants = hide;
-    });
   }
 }
 </script>
