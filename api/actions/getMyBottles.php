@@ -2,7 +2,7 @@
 
 $user = SSO::getUser();
 if (!$user) {
-    Result::jump(SSO::generateLoginUrl());
+    Result::jump(SSO::generateLoginUrl("http://my.nuaa.edu.cn/bottle/#/"));
 }
 
 $THE_LARGEST_ID = 9999999;
