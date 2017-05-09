@@ -14,6 +14,7 @@ require_once '../include/db.class.php';
 require_once '../include/request.class.php';
 require_once '../include/result.class.php';
 require_once '../include/libsso/libsso.class.php';
+require_once '../include/gender.inc.php';
 
 // database setting
 DB::connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB, MYSQL_PORT);
