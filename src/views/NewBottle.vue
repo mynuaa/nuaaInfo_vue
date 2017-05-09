@@ -1,5 +1,5 @@
 <template>
-  <div class="newBottle">
+  <div class="new-bottle">
     <textarea v-model="bottle.content" class="newInput" placeholder="我想说的是..."></textarea>
     <div class="da-form">
       <label for="newTopic">话题</label>
@@ -85,20 +85,20 @@ export default {
 </script>
 
 <style>
-.newBottle {
+.new-bottle {
     width: calc(100% - 20px);
     margin: auto;
 }
-.newBottle textarea,
-.newBottle .da-form,
-.newBottle .nameless,
-.newBottle .submit {
+.new-bottle textarea,
+.new-bottle .da-form,
+.new-bottle .nameless,
+.new-bottle .submit {
     width: 100%;
     display: block;
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-.newBottle textarea {
+.new-bottle textarea {
     height: 10em;
     margin: 0 auto 10px;
     padding: 10px;
@@ -106,15 +106,15 @@ export default {
     border: none;
     resize: none;
 }
-.newBottle .dropdown-toggle {
+.new-bottle .dropdown-toggle {
     border: none !important;
     border-bottom: 1px solid #DDD !important;
     border-radius: 0 !important;
 }
-.newBottle .dropdown i {
+.new-bottle .dropdown i {
     display: none;
 }
-.newBottle .dropdown .selected-tag {
+.new-bottle .dropdown .selected-tag {
     background: #49BB87;
     color: #FFF;
     border: none;
@@ -122,23 +122,23 @@ export default {
     margin: 2px 3px 0 0;
     padding: 4px 5px !important;
 }
-.newBottle .da-form {
+.new-bottle .da-form {
     background: #FFF;
     margin: 0 auto 10px;
     padding: 10px;
 }
-.newBottle .nameless {
+.new-bottle .nameless {
     overflow: hidden;
 }
-.newBottle .nameless > div {
+.new-bottle .nameless > div {
     float: left;
     width: 50%;
 }
-.newBottle .nameless > div > span,
-.newBottle .nameless > div > .switch {
+.new-bottle .nameless > div > span,
+.new-bottle .nameless > div > .switch {
     vertical-align: middle;
 }
-.newBottle .submit {
+.new-bottle .submit {
     margin-bottom: 10px;
 }
 </style>

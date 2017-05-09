@@ -1,11 +1,5 @@
 <template>
-  <div class="index-container" @click="topicShow=false">
-    <ul class="topics" v-if="topicShow">
-      <li><router-link to="/topics/你有我没有">你有我没有</router-link></li>
-      <li><router-link to="/topics/我对南航说">我对南航说</router-link></li>
-      <li><router-link to="/topics/对学弟学妹的忠告">对学弟学妹的忠告</router-link></li>
-      <li><router-link to="/topics/我最想对你说">我最想对你说</router-link></li>
-    </ul>
+  <div class="index-container">
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
@@ -31,8 +25,7 @@ export default {
       data: [],
       lastId: 9999999,
       oldScreenY: 0,
-      hideNonImportants: false,
-      topicShow: false
+      hideNonImportants: false
     }
   },
   methods: {
@@ -60,27 +53,4 @@ export default {
 </script>
 
 <style>
-.to-topics {
-  color: white;
-  float: right;
-  margin-right: 40px;
-  height: 100%;
-  line-height: 51px;
-  font-size: 20px;
-  box-shadow: 0 0 15px white;
-  padding: 0px 20px
-}
-.topics {
-  position: fixed;
-  top: 80px;
-  right: 0;
-  list-style: none;
-  padding: 0;
-  text-align: center;
-  background-color: white;
-}
-.topics a {
-  display: inline-block;
-  padding: 15px 20px;
-}
 </style>
