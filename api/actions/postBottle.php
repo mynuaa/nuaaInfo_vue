@@ -30,7 +30,7 @@ $postedId = DB::getOne($sql,'id');
 //添加话题功能
 // todo 测试！！！！！！！！！！！！！！！！！！！！！
 $arrTopic = [];
-preg_match_all("/#(.*?)#/",$content,$arrTopic);
+preg_match_all("/#(.+?)#/",$content,$arrTopic);
 
 $arrTopic = $arrTopic[1];
 $arrTopic = array_map(function ($arr){

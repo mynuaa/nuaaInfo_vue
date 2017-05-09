@@ -1,17 +1,33 @@
 <template>
-    <div class="bottle-footer" v-if="showFooter">
+    <div class="bottle-footer" :class="{
+        'v2': !logged,
+        'v3': logged
+    }" v-if="showFooter">
         <router-link to="/" class="clickable">首页</router-link>
-        <router-link to="/mybottles" class="clickable">我的瓶子</router-link>
+        <a :href="loginUrl" class="clickable" v-if="!logged">快速登录</a>
+        <router-link to="/mybottles" class="clickable" v-if="logged">我的瓶子</router-link>
+        <a :href="logoutUrl" class="clickable" v-if="!!logged">退出登录</a>
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            logged: !!window.bottle.user
+        }
+    },
     computed: {
         showFooter: function () {
             return this.$route.name === 'index' ||
                    this.$route.name === 'topics' ||
                    this.$route.name === 'mybottles';
+        },
+        loginUrl: function () {
+            return '/sso/?page=login&redirect_uri=' + btoa(location.pathname);
+        },
+        logoutUrl: function () {
+            return '/sso/?action=logout&redirect_uri=' + btoa(location.pathname);
         }
     }
 }
@@ -31,15 +47,21 @@ export default {
 .bottle-footer.hide {
     bottom: -60px;
 }
+.bottle-footer.v2 a {
+    width: 50%;
+}
+.bottle-footer.v3 a {
+    width: 33.333333%;
+}
 .bottle-footer a {
     float: left;
-    width: 50%;
     height: 50px;
     line-height: 50px;
     box-sizing: border-box;
     text-align: center;
-}
-.bottle-footer a:first-child {
     border-right: 1px solid #F1F1F1;
+}
+.bottle-footer a:last-child {
+    border-right: none;
 }
 </style>

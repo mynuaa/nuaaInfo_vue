@@ -7,7 +7,7 @@
     </div>
     <div class="new">
       <input type="text" placeholder="发布评论" v-model="newComment.content">
-      <i class="fa fa-paper-plane-o" @click="sendComment"></i>
+      <i class="fa fa-paper-plane-o clickable" @click="sendComment"></i>
     </div>
   </div>
 </template>
@@ -35,32 +35,33 @@
     },
     methods: {
       getBottle: function () {
-        this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then((response) => {
+        this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then(response => {
           this.data = response.data.data;
           this.newComment.postId = this.data.id;
-        })
+        });
       },
       getComments: function () {
-        this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then((response) => {
+        this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then(response => {
           this.comments = response.data.data;
-        })
+        });
       },
       sendComment: function () {
-        if(this.newComment.content === '')
+        if(this.newComment.content === '') {
+          alert('还没有写内容哦……');
           return;
-        this.axios.post('/bottle/api/?_action=postComment', this.newComment).then((response) => {
+        }
+        this.axios.post('/bottle/api/?_action=postComment', this.newComment).then(response => {
           if(response.data.code === 2) {
             let back_url = '/#' + this.$route.path;
             let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
             window.location.href = login_url;
           }
           this.newComment.content = '';
-          this.getBottle();
           this.getComments();
-        })
+        });
       }
     },
-    created () {
+    mounted() {
       window.eventBus.$emit('titleChange', '一个有趣的瓶子');
       this.getBottle();
       this.getComments();

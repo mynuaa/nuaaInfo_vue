@@ -6,7 +6,7 @@ if (!$user) {
 }
 
 $THE_LARGEST_ID = 9999999;
-$PAGE_SIZE = 8;
+$PAGE_SIZE = 15;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 

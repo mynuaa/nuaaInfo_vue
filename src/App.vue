@@ -1,5 +1,5 @@
 <template>
-    <div id="app" @touchstart="handleTouchstart" @touchmove="handleTouchmove">
+    <div id="app" v-if="gotUser" @touchstart="handleTouchstart" @touchmove="handleTouchmove">
         <bottle-header :class="{ 'hide': hide }"></bottle-header>
         <router-view></router-view>
         <bottle-footer :class="{ 'hide': hide }"></bottle-footer>
@@ -10,7 +10,8 @@
 export default {
     data() {
         return {
-            hide: false
+            hide: false,
+            gotUser: false
         };
     },
     methods: {
@@ -18,7 +19,7 @@ export default {
             this.oldScreenY = event.touches[0].screenY;
         },
         handleTouchmove: function (event) {
-            let move = event.touches[0].screenY - this.oldScreenY;
+            const move = event.touches[0].screenY - this.oldScreenY;
             if (move > 30 || window.scrollY < 50) {
                 window.eventBus.$emit('hideNonImportants', false);
                 this.oldScreenY = event.touches[0].screenY;
@@ -28,9 +29,26 @@ export default {
             }
         }
     },
-    mounted: function () {
+    mounted() {
+        this.axios.defaults.withCredentials = true;
+        window.bottle = {
+            user: null,
+            userLogged: function () {
+                if (window.bottle.user) {
+                    return true;
+                } else {
+                    location.href = window.bottle.ssoUrl;
+                    return false;
+                }
+            }
+        };
         window.eventBus.$on('hideNonImportants', hide => {
             this.hide = hide;
+        });
+        this.axios.get('/bottle/api/?_action=getUser').then(response => {
+            window.bottle.user = response.data.data || null;
+            window.bottle.ssoUrl = '/sso/?page=login&redirect_uri=' + btoa(location.pathname);
+            this.gotUser = true;
         });
     }
 }
@@ -72,5 +90,8 @@ input, button, textarea {
 }
 .clickable:active {
     background: rgba(0, 0, 0, 0.1);
+}
+button {
+    font-size: 14px !important;
 }
 </style>

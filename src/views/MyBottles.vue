@@ -1,10 +1,15 @@
 <template>
-  <div>
+  <div class="mybottles">
+    <h2>{{user}} 扔过的瓶子们</h2>
+    <div class="card" v-if="!loading && data.length === 0">
+      <p>你还没有扔过瓶子呢...</p>
+      <mt-button type="primary" @click="$router.push('/newbottle')">扔一个</mt-button>
+    </div>
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10">
-      <card v-for="item in data" :item="item" :key="item.id"></card>
+      <card v-for="item in data" :item="item" :key="item.id" class="clickable"></card>
     </div>
     <palette-button :class="{ 'hide': !show }"></palette-button>
   </div>
@@ -25,27 +30,19 @@
         data: [],
         lastId: 999999,
         oldScreenX: 0,
-        show: true
+        show: true,
+        user: window.bottle.user.username
       }
     },
     methods: {
-      getBottles: function (id=null) {
-        let url;
-        if(id === null)
-          url = '/bottle/api/?_action=getMyBottles';
-        else
-          url = '/bottle/api/?_action=getMyBottles' + '&id=' + id;
-        this.axios.get(url).then((response) => {
-          if(response.data.code === 2) {
-            let back_url = '/#' + this.$route.path;
-            let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
-            window.location.href = login_url;
+      getBottles: function (id = null) {
+        const url = '/bottle/api/?_action=getMyBottles' + (id ? `&id=${id}` : '');
+        this.axios.get(url).then(response => {
+          if (response.data.data) {
+            this.data = this.data.concat(response.data.data);
+            this.lastId = this.data[this.data.length-1].id;
+            this.loading = false;
           }
-          if(response.data.data === undefined)
-            return
-          this.data = this.data.concat(response.data.data);
-          this.lastId = this.data[this.data.length-1].id;
-          this.loading = false;
         })
       },
       loadMore: function () {
@@ -53,8 +50,19 @@
         this.getBottles(this.lastId);
       }
     },
-    mounted () {
+    mounted() {
       window.eventBus.$emit('titleChange', '我的瓶子');
     }
   }
 </script>
+
+<style>
+.mybottles h2 {
+  max-width: 960px;
+  margin: 10px auto 15px;
+}
+.mybottles .card button {
+    margin-bottom: 20px;
+    width: 100%;
+}
+</style>

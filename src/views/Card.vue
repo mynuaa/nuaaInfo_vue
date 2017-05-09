@@ -11,8 +11,8 @@
       </div>
     </div>
     <div class="content" @click.self="toDetails(item.id)">
-      <router-link :to="`/topics/${topic[1]}`">{{topic[0]}}</router-link>
-      <p @click="toDetails(item.id)">{{item.content | getTopic}}</p>
+      <router-link :to="topic.link" v-for="topic in topics" :key="topic.id">{{topic.title}}</router-link>
+      <p @click="toDetails(item.id)">{{item.content}}</p>
     </div>
     <div class="footer" @click.self="toDetails(item.id)">
       <div class="clickable" @click="like(item.id)">
@@ -36,74 +36,55 @@ export default {
   props: {
     item: Object
   },
-  data () {
+  data() {
     return {
       data: this.item,
       islike: false,
-      topic: ['', '', '']
-    }
-  },
-  watch: {
-      data: function () {
-        let format = /^#(.+)#/;
-        if(format.test(this.data.content)){
-          this.topic = format.exec(this.data.content);
-          this.data.content = this.data.content.replace(format , '');
-        }else {
-          this.data.topic = ['', '', ''];
-        }
-      }
-  },
-  filters: {
-    getTopic: function (val, topic) {
-      let format = /^#(.+)#/;
-      if(format.test(val)){
-        val = val.replace(format , '');
-        return val;
-      }
-      return val
+      topics: []
     }
   },
   methods: {
     toDetails: function (id) {
-      this.$router.push('/details/' + id);
+      this.$router.push(`/details/${id}`);
     },
     like: function (id) {
-      let url = '/bottle/api/?_action=getLike&id='+id;
-      this.axios.defaults.withCredentials = true
-      this.axios.get(url).then((response) => {
-        if(response.data.code != undefined){
-          if(response.data.code === 2) {
-            let back_url = '/#' + this.$route.path;
-            let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
-            window.location.href = login_url;
-          }
+      if (window.bottle.userLogged()) {
+        this.axios.get(`/bottle/api/?_action=getLike&id=${id}`).then(response => {
           this.islike = true;
           this.item.likeCount++;
-        }
-      })
+        });
+      }
     },
     comment: function (id) {
-      this.$router.push('/details/' + id)
+      if (window.bottle.userLogged()) {
+        this.$router.push('/details/' + id);
+      }
     },
     share: function () {
-      let back_url = encodeURIComponent(window.location.href);
-      let title = '南航Bottle';
-      let summary = encodeURIComponent(this.item.title);
-      let site = 'my.nuaa.edu.cn';
-      let pics = encodeURIComponent(this.item.avatar);
-      let share_url = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+back_url+'&title='+title+'&desc=&summary='+summary+'&site='+site+'&pics='+pics;
+      const back_url = encodeURIComponent(window.location.href);
+      const title = '南航Bottle';
+      const summary = encodeURIComponent(this.item.title);
+      const site = 'my.nuaa.edu.cn';
+      const pics = encodeURIComponent(this.item.avatar);
+      const share_url = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+back_url+'&title='+title+'&desc=&summary='+summary+'&site='+site+'&pics='+pics;
       window.location.href = share_url;
     }
   },
-  mounted: function () {
-    let format = /^#(.+)#/;
-    if(format.test(this.data.content)){
-      this.topic = format.exec(this.data.content);
-      this.data.content = this.data.content.replace(format , '');
-    }else {
-      this.data.topic = ['', '', ''];
+  mounted() {
+    const re = /#(.+?)#/g;
+    const topics = this.item.content.match(re);
+    if (topics) {
+      let id = 0;
+      for (let topic of topics) {
+        topic = topic.slice(1, topic.length - 1);
+        this.topics.push({
+          id: ++id,
+          title: `#${topic}# `,
+          link: `/topics/${topic}`
+        });
+      }
     }
+    this.item.content = this.item.content.replace(re, '').trim();
   }
 }
 </script>
@@ -156,10 +137,16 @@ export default {
 .card .content p,
 .card .content a {
     margin: 3px 0;
+    min-height: 20px;
+}
+.card .content p:empty,
+.card .content a:empty {
+    margin: 0;
 }
 .card .content a {
-    display: block;
+    display: inline-block;
     color: #42B983;
+    margin: 0 3px;
 }
 .card .footer {
     border-top: 1px solid #F1F1F1;

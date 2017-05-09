@@ -49,7 +49,7 @@
         this.getBottles(this.lastId);
       }
     },
-    mounted () {
+    mounted() {
       window.eventBus.$emit('titleChange', '#' + this.$route.params.topic + '#');
     }
   }

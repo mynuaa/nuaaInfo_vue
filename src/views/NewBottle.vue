@@ -56,7 +56,7 @@ export default {
         label: '对学弟学妹的忠告',
         value: '对学弟学妹的忠告'
       }],
-      placeholder: '加一个话题吧...',
+      placeholder: '这里是常用话题...',
       topic: {
         label: '每日一瓶',
         value: '每日一瓶'
@@ -65,20 +65,15 @@ export default {
   },
   methods: {
     newBottle: function () {
-      if(this.content === '') {
+      if(this.bottle.content === '') {
+        alert('内容是空的...');
         return false;
       }
       if (this.topic && this.topic.value !== '') {
         this.bottle.content = `#${this.topic.value}# ${this.bottle.content}`;
       }
       this.axios.post('/bottle/api/?_action=postBottle', this.bottle).then(response => {
-        if(response.data.code === 2) {
-          let back_url = '/' + this.$route.path;
-          let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
-          window.location.href = login_url;
-        } else {
-          this.$router.go('/');
-        }
+        this.$router.push('/');
       });
       return false;
     }
@@ -144,7 +139,6 @@ export default {
     vertical-align: middle;
 }
 .newBottle .submit {
-    font-size: 14px !important;
     margin-bottom: 10px;
 }
 </style>

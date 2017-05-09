@@ -10,7 +10,7 @@
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10">
-      <card v-for="item in data" :item="item" :key="item.id"></card>
+      <card v-for="item in data" :item="item" :key="item.id" class="clickable"></card>
     </div>
     <palette-button :class="{ 'hide': hideNonImportants }"></palette-button>
   </div>
