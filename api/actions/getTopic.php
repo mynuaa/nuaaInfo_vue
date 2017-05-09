@@ -9,12 +9,14 @@ if (!isset($_GET['topic'])) {
     Result::error('empty topic');
 }
 
+/*
 $topicList = ['你有我没有', '我最想对你说', '我对南航说', '对学弟学妹们的忠告'];
 $topic = addslashes($_GET['topic']);
 
 if (!in_array($topic, $topicList)) {
     Result::error('no topic');
 }
+*/
 
 $sql = "SELECT * FROM `topic` inner join `data` on `topic`.`postId` = `data`.`id` WHERE `topicName` = '{$topic}' AND `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE}";
 
@@ -26,8 +28,7 @@ foreach ($result as &$value) {
     if ($value['secret'] == 0) {
         $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
     } else {
-        $value['nickname'] = '某同学';
-        $value['userId'] = '0';
+        require_once('gender.inc.php');
     }
 }
 

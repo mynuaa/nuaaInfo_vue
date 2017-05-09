@@ -47,6 +47,7 @@ body {
     margin: 0;
     font-size: 14px;
     background: #F1F1F1;
+    overflow-x: hidden;
 }
 a {
     text-decoration: none;
