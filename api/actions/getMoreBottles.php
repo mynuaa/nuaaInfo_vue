@@ -4,11 +4,11 @@ $THE_LARGEST_ID = 9999999;
 $PAGE_SIZE = 15;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
-
+$user = SSO::getUser();
 $sql = "SELECT `data`.`id` , `data`.`title` , `data`.`content` , `data`.`gender` , 
 `data`.`secret` , `data`.`avatar` , `data`.`nickname`, `data`.`commentCount` ,
-`data`.`userId` , `data`.`likeCount` , `like`.id AS `isLiked` 
-FROM `data` left join `like` on `like`.`postId` = `data`.`id` 
+`data`.`userId` , `data`.`likeCount` , `like`.`userId` AS `isLiked` 
+FROM `data` left join `like` on `like`.`postId` = `data`.`id` AND `like`.`userId` = {$user['uid']}
 WHERE `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE}";
 $result = DB::getAll($sql);
 
@@ -27,5 +27,6 @@ foreach ($result as &$value) {
         genderProcess($value);
     }
 }
+
 
 Result::success($result);
