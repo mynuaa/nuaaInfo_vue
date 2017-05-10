@@ -17,14 +17,30 @@ if (!in_array($topic, $topicList)) {
     Result::error('no topic');
 }
 */
+if (!$user) {
+    $user['id'] = 0;
+}else{
+    $user = SSO::getUser();
+}
 
-$sql = "SELECT * FROM `topic` inner join `data` on `topic`.`postId` = `data`.`id` WHERE `topicName` = '{$topic}' AND `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE}";
+$sql = "SELECT `data`.`id` , `data`.`title` , `data`.`content` , `data`.`gender` , 
+`data`.`secret` , `data`.`avatar` , `data`.`nickname`, `data`.`commentCount` ,
+`data`.`userId` , `data`.`likeCount` , `like`.`userId` AS `isLiked` 
+FROM `data` , `topic` , `like`  
+WHERE `like`.`postId` = `data`.`id` AND `like`.`userId` = {$user['uid']} 
+AND `topic`.`postId` = `data`.`id` AND `topic`.`topicName` = '{$topic}' 
+AND `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE} ";
 
 $result = DB::getAll($sql);
 
 foreach ($result as &$value) {
     $value['title'] = htmlspecialchars($value['title']);
     $value['content'] = htmlspecialchars($value['content']);
+    if($value['isLiked'] == NULL){
+        $value['isLiked'] = 0;
+    }else{
+        $value['isLiked'] = 1;
+    }
     if ($value['secret'] == 0) {
         $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
     } else {
