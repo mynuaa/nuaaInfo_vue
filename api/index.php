@@ -13,7 +13,7 @@ require_once '../include/config.php';
 require_once '../include/db.class.php';
 require_once '../include/request.class.php';
 require_once '../include/result.class.php';
-require_once '../include/libsso/libsso.class.php';
+// require_once '../include/libsso/libsso.class.php';
 require_once '../include/gender.inc.php';
 
 // database setting

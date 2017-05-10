@@ -9,7 +9,15 @@ if (!isset($_GET['id'])) {
 }
 
 $id = intval($_GET['id']);
-$sql = "UPDATE `data` SET `likeCount` = `likeCount` + 1 WHERE `id` = {$id}";
-DB::query($sql);
+$time = time();
+$user = SSO::getUser();
 
-Result::success(['id' => $id]);
+$sql = "INSERT INTO `like` (`userId`, `postId`, `date`) VALUES ({$user['uid']}, {$id}, {$time})";
+
+if(DB::query($sql)){
+    Result::success();
+    $sql = "UPDATE `data` SET `likeCount` = `likeCount` + 1 WHERE `id` = {$id}";
+    DB::query($sql);
+}else{
+    Result::error();
+}
