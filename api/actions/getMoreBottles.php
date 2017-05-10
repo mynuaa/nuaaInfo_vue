@@ -17,9 +17,9 @@ foreach ($result as &$value) {
     $value['title'] = htmlspecialchars($value['title']);
     $value['content'] = htmlspecialchars($value['content']);
     if($value['isLiked'] == NULL){
-        $value['isLiked'] = 1;
-    }else{
         $value['isLiked'] = 0;
+    }else{
+        $value['isLiked'] = 1;
     }
     if ($value['secret'] == 0) {
         $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
