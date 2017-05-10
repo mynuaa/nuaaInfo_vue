@@ -5,13 +5,22 @@ $PAGE_SIZE = 15;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 
-$sql = "SELECT * FROM `data` WHERE `id` < {$id} ORDER BY `id` DESC LIMIT {$PAGE_SIZE}";
+$sql = "SELECT `data`.`id` , `data`.`title` , `data`.`content` , `data`.`gender` , 
+`data`.`secret` , `data`.`avatar` , `data`.`nickname`, `data`.`commentCount` , `data`.`author` , `data`.`author`,
+`data`.`userId` , `data`.`likeCount` , `like`.id AS `isLiked` 
+FROM `data` left join `like` on `like`.`postId` = `data`.`id` 
+WHERE `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE}";
 $result = DB::getAll($sql);
 
 // prevent xss
 foreach ($result as &$value) {
     $value['title'] = htmlspecialchars($value['title']);
     $value['content'] = htmlspecialchars($value['content']);
+    if($value['isLiked'] == NULL){
+        $value['isLiked'] = 1;
+    }else{
+        $value['isLiked'] = 0;
+    }
     if ($value['secret'] == 0) {
         $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
     } else {
