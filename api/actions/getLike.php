@@ -15,9 +15,9 @@ $user = SSO::getUser();
 $sql = "INSERT INTO `like` (`userId`, `postId`, `date`) VALUES ({$user['uid']}, {$id}, {$time})";
 
 if(DB::query($sql)){
-    Result::success();
     $sql = "UPDATE `data` SET `likeCount` = `likeCount` + 1 WHERE `id` = {$id}";
     DB::query($sql);
+    Result::success();
 }else{
     Result::error();
 }
