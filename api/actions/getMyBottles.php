@@ -28,13 +28,6 @@ $result = DB::getAll($sql);
 
 // prevent xss
 foreach ($result as &$value) {
-    $value['title'] = htmlspecialchars($value['title']);
-    $value['content'] = htmlspecialchars($value['content']);
-    if ($value['isLiked'] == NULL) {
-        $value['isLiked'] = 0;
-    } else {
-        $value['isLiked'] = 1;
-    }
     $value['avatar'] = "/ucenter/avatar.php?uid={$value['userId']}&size=small";
 }
 
