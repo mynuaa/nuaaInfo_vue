@@ -22,6 +22,11 @@ $result = DB::getOne($sql);
 $result['title'] = htmlspecialchars($result['title']);
 $result['content'] = htmlspecialchars($result['content']);
 
+if ($result['isLiked'] == NULL) {
+    $result['isLiked'] = 0;
+} else {
+    $result['isLiked'] = 1;
+}
 if ($result['secret'] == 0) {
     $result['avatar'] = "/ucenter/avatar.php?uid={$result['userId']}&size=small";
 } else {

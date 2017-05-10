@@ -23,9 +23,9 @@ $result = DB::getAll($sql);
 foreach ($result as &$value) {
     $value['title'] = htmlspecialchars($value['title']);
     $value['content'] = htmlspecialchars($value['content']);
-    if($value['isLiked'] == NULL){
+    if ($value['isLiked'] == NULL) {
         $value['isLiked'] = 0;
-    }else{
+    } else {
         $value['isLiked'] = 1;
     }
     if ($value['secret'] == 0) {
