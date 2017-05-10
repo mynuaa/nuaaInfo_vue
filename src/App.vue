@@ -98,4 +98,7 @@ input, button, textarea {
 button {
     font-size: 14px !important;
 }
+.pointer {
+    cursor: pointer;
+}
 </style>

@@ -4,7 +4,7 @@
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10">
-      <card v-for="item in data" :item="item" :key="item.id"></card>
+      <card v-for="item in data" :item="item" :key="item.id" class="pointer"></card>
     </div>
   </div>
 </template>
