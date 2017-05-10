@@ -6,7 +6,7 @@ $PAGE_SIZE = 15;
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 
 $sql = "SELECT `data`.`id` , `data`.`title` , `data`.`content` , `data`.`gender` , 
-`data`.`secret` , `data`.`avatar` , `data`.`nickname`, `data`.`commentCount` , `data`.`author` , `data`.`author`,
+`data`.`secret` , `data`.`avatar` , `data`.`nickname`, `data`.`commentCount` ,
 `data`.`userId` , `data`.`likeCount` , `like`.id AS `isLiked` 
 FROM `data` left join `like` on `like`.`postId` = `data`.`id` 
 WHERE `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE}";
