@@ -7,7 +7,7 @@
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10">
-      <card v-for="item in data" :item="item" :key="item.id" class="clickable"></card>
+      <card v-for="item in data" :item="item" :key="item.id"></card>
     </div>
     <palette-button :class="{ 'hide': hideNonImportants || $route.name !== 'index' }"></palette-button>
   </div>
@@ -82,5 +82,8 @@ body.no-scroll {
 }
 .hidden {
     visibility: hidden;
+}
+.infinite-scroll .card {
+    cursor: pointer;
 }
 </style>

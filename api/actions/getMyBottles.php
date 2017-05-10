@@ -10,7 +10,20 @@ $PAGE_SIZE = 15;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 
-$sql = "SELECT * FROM `data` WHERE `id` < {$id} AND `userId` = {$user['uid']} ORDER BY `id` DESC LIMIT {$PAGE_SIZE}";
+$user = SSO::getUser();
+$userId = ($user && isset($user['uid'])) ? $user['uid'] : 0;
+$sql = "SELECT
+            d.id, d.content, d.gender, d.secret, d.avatar,
+            d.nickname, d.commentCount, d.userId, d.likeCount,
+            l.userId `isLiked`
+        FROM `data` `d`
+        LEFT JOIN `like` `l`
+        ON l.postId = d.id
+        AND l.userId = {$userId}
+        WHERE d.id < {$id}
+        AND d.userId = {$userId}
+        ORDER BY d.id DESC
+        LIMIT {$PAGE_SIZE}";
 $result = DB::getAll($sql);
 
 // prevent xss

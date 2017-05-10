@@ -10,16 +10,24 @@ if (!isset($_GET['topic'])) {
 }
 $topic = addslashes($_GET['topic']);
 
-/*
-$topicList = ['你有我没有', '我最想对你说', '我对南航说', '对学弟学妹们的忠告'];
-
-if (!in_array($topic, $topicList)) {
-    Result::error('no topic');
-}
-*/
-
-$sql = "SELECT * FROM `topic` inner join `data` on `topic`.`postId` = `data`.`id` WHERE `topicName` = '{$topic}' AND `data`.`id` < {$id} ORDER BY `data`.`id` DESC LIMIT {$PAGE_SIZE}";
-
+$user = SSO::getUser();
+$userId = ($user && isset($user['uid'])) ? $user['uid'] : 0;
+$sql = "SELECT
+            a.id, a.content, a.gender, a.secret, a.avatar,
+            a.nickname, a.commentCount, a.userId, a.likeCount,
+            l.userId `isLiked`
+        FROM (
+            SELECT d.*, t.topicName
+            FROM `data` `d`
+            LEFT JOIN `topic` `t`
+            ON t.postId = d.id
+        ) `a`
+        LEFT JOIN `like` `l` ON
+            l.userId = {$userId}
+        WHERE
+            a.topicName = '{$topic}' AND a.id < {$id}
+        ORDER BY a.id DESC
+        LIMIT {$PAGE_SIZE}";
 $result = DB::getAll($sql);
 
 foreach ($result as &$value) {

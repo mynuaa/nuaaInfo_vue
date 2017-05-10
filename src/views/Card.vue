@@ -1,6 +1,6 @@
 <template>
-  <div class="card" @click.self="toDetails(item.id)">
-    <div class="header" @click.self="toDetails(item.id)">
+  <div class="card" @click.self="toDetails()">
+    <div class="header" @click.self="toDetails()">
       <div class="avatar" :style="{ background: `url(${item.avatar})` }"></div>
       <div class="info">
         <div class="name">{{item.nickname}}</div>
@@ -10,19 +10,19 @@
         <i class="fa fa-share"></i>
       </div>
     </div>
-    <div class="content" @click.self="toDetails(item.id)">
-      <router-link :to="topic.link" v-for="topic in topics" :key="topic.id">{{topic.title}}</router-link>
-      <p @click="toDetails(item.id)">{{item.content}}</p>
+    <div class="content" @click.self="toDetails()">
+      <router-link :to="topic.link" v-for="topic in topics" :key="topic.id">{{topic.content}}</router-link>
+      <p @click="toDetails()">{{item.content}}</p>
     </div>
-    <div class="footer" @click.self="toDetails(item.id)">
-      <div class="clickable" @click="like(item.id)">
+    <div class="footer" @click.self="toDetails()">
+      <div class="clickable" @click="like()">
         <i class="fa" :class="{
-          'fa-heart liked': islike,
-          'fa-heart-o': !islike
+          'fa-heart liked': item.isLiked,
+          'fa-heart-o': !item.isLiked
         }"></i>
         <span>{{item.likeCount}}</span>
       </div>
-      <div class="clickable" @click="comment(item.id)">
+      <div class="clickable" @click="comment()">
         <i class="fa fa-comment-o"></i>
         <span>{{item.commentCount}}</span>
       </div>
@@ -39,31 +39,33 @@ export default {
   data() {
     return {
       data: this.item,
-      islike: false,
       topics: []
     }
   },
   methods: {
-    toDetails: function (id) {
-      this.$router.push(`/details/${id}`);
+    toDetails: function () {
+      this.$router.push(`/details/${this.item.id}`);
     },
-    like: function (id) {
+    like: function () {
+      if (this.item.isLiked) {
+        return false;
+      }
       if (window.bottle.userLogged()) {
-        this.axios.get(`/bottle/api/?_action=getLike&id=${id}`).then(response => {
-          this.islike = true;
+        this.axios.get(`/bottle/api/?_action=getLike&id=${this.item.id}`).then(response => {
           this.item.likeCount++;
+          this.item.isLiked = true;
         });
       }
     },
-    comment: function (id) {
+    comment: function () {
       if (window.bottle.userLogged()) {
-        this.$router.push('/details/' + id);
+        this.$router.push(`/details/${this.item.id}`);
       }
     },
     share: function () {
       const back_url = encodeURIComponent(window.location.href);
       const title = '南航Bottle';
-      const summary = encodeURIComponent(this.item.title);
+      const summary = encodeURIComponent(this.item.content);
       const site = 'my.nuaa.edu.cn';
       const pics = encodeURIComponent(this.item.avatar);
       const share_url = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+back_url+'&title='+title+'&desc=&summary='+summary+'&site='+site+'&pics='+pics;
