@@ -51,11 +51,6 @@
           return;
         }
         this.axios.post('/bottle/api/?_action=postComment', this.newComment).then(response => {
-          if(response.data.code === 2) {
-            let back_url = '/#' + this.$route.path;
-            let login_url = '/sso/?page=login&redirect_uri=' + btoa(back_url);
-            window.location.href = login_url;
-          }
           this.newComment.content = '';
           this.getComments();
         });

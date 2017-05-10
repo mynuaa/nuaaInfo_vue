@@ -81,7 +81,7 @@ export default {
         topic = topic.slice(1, topic.length - 1);
         this.topics.push({
           id: ++id,
-          title: `#${topic}# `,
+          content: `#${topic}# `,
           link: `/topics/${topic}`
         });
       }

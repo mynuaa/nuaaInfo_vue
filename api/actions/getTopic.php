@@ -14,7 +14,7 @@ $user = SSO::getUser();
 $userId = ($user && isset($user['uid'])) ? $user['uid'] : 0;
 $sql = "SELECT
             a.id, a.content, a.gender, a.secret, a.avatar,
-            a.nickname, a.commentCount, a.userId, a.likeCount,
+            a.nickname, a.commentCount, a.userId, a.likeCount, a.date,
             l.userId `isLiked`
         FROM (
             SELECT d.*, t.topicName
