@@ -13,7 +13,7 @@ $topic = addslashes($_GET['topic']);
 $user = SSO::getUser();
 $userId = ($user && isset($user['uid'])) ? $user['uid'] : 0;
 $sql = "SELECT
-            a.id, a.content, a.gender, a.secret, a.avatar,
+            a.id, a.content, a.gender, a.secret, a.avatar, a.userId,
             a.nickname, a.commentCount, a.likeCount, a.date,
             l.userId `isLiked`
         FROM (

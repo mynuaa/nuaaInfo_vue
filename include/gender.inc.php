@@ -8,5 +8,5 @@ function genderProcess (&$value){
         $value['nickname'] = '某女生';
         $value['avatar'] = '/bottle/static/avatar/girl' . ($value['id'] % 6 + 1 ) . '.gif';
     }
-    $value['userId'] = '0';
+    unset($value['userId']);
 }
