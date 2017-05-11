@@ -46,11 +46,19 @@ export default {
     loadMore: function () {
       this.loading = true;
       this.getBottles(this.lastId);
+    },
+    refresh: function () {
+      this.lastId = 9999999,
+      this.data = [];
+      this.loadMore();
     }
   },
   mounted() {
     window.eventBus.$on('hideNonImportants', hide => {
       this.hideNonImportants = hide;
+    });
+    window.eventBus.$on('indexRefresh', () => {
+      this.refresh();
     });
   },
   beforeRouteUpdate(to, from, next) {

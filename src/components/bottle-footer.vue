@@ -3,7 +3,7 @@
         'v2': !logged,
         'v3': logged
     }" v-if="showFooter">
-        <router-link to="/" class="clickable">首页</router-link>
+        <a class="clickable" @click="indexClick">首页</a>
         <a :href="loginUrl" class="clickable" v-if="!logged">快速登录</a>
         <router-link to="/mybottles" class="clickable" v-if="logged">我的瓶子</router-link>
         <a :href="logoutUrl" class="clickable" v-if="!!logged">退出登录</a>
@@ -28,6 +28,15 @@ export default {
         },
         logoutUrl: function () {
             return '/sso/?action=logout&redirect_uri=' + btoa(location.pathname);
+        }
+    },
+    methods: {
+        indexClick: function () {
+            if (this.$route.name === 'index') {
+                window.eventBus.$emit('indexRefresh');
+            } else {
+                this.$router.push('/');
+            }
         }
     }
 }
