@@ -24,7 +24,7 @@ Request::initialize();
 
 // white list
 
-$actionList = ['getBottle', 'getComments', 'getLike', 'getMoreBottles', 'getMyBottles', 'getUser', 'postBottle', 'postComment',"getTopic"];
+$actionList = ['getBottle', 'getComments', 'getLike', 'getMoreBottles', 'getMyBottles', 'getUser', 'postBottle', 'postComment', "getTopic", "getMessage"];
 
 
 if (!isset($_GET['_action'])) {
