@@ -23,7 +23,7 @@ $sql = "SELECT
             ON t.postId = d.id
         ) `a`
         LEFT JOIN `like` `l` ON
-            l.postId = a.id AND l.userId = 482698
+            l.postId = a.id AND l.userId = {$userId}
         WHERE
             a.topicName = '{$topic}' AND a.id < {$id}
         ORDER BY a.id DESC
