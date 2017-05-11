@@ -5,14 +5,11 @@ if (!$user) {
     Result::jump(SSO::generateLoginUrl("http://my.nuaa.edu.cn/bottle/#/"));
 }
 
-$user['id'] = 482698;
-$sql = "SELECT Count(*) as `likeNum` FROM `like` inner join `data` on `like`.`postId` = `data`.`id` WHERE `isRead` = 0 AND `like`.`userId` = {$user['id']}";
+$sql = "SELECT Count(*) AS `likeNum` FROM `like` INNER JOIN `data` ON `like`.`postId` = `data`.`id` WHERE `isRead` = 0 AND `like`.`userId` = {$user['id']}";
 
-$result = DB::getOne($sql);
-$return['likeNum'] = $result['likeNum'];
+$return['likeNum'] = DB::getOne($sql,'likeNum');
 
-
-$sql = "SELECT data.* , `comment`.`content` as `cContent` , `comment`.`date` as `cData` FROM `comment` inner join `data` on `comment`.`postId` = `data`.`id` WHERE `isRead` = 0 AND `comment`.`userId` =  {$user['id']} AND `data`.`softDelete` = 0 AND `comment`.`softDelete` = 0";
+$sql = "SELECT data.* , `comment`.`content` AS `cContent` , `comment`.`date` AS `cData` FROM `comment` INNER JOIN `data` ON `comment`.`postId` = `data`.`id` WHERE `isRead` = 0 AND `comment`.`userId` =  {$user['id']} AND `data`.`softDelete` = 0 AND `comment`.`softDelete` = 0";
 
 $result = DB::getAll($sql);
 

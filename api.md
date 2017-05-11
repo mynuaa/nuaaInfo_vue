@@ -6,7 +6,7 @@
 获取某个瓶子的回复：GET /api/?_action=getComments&id=xxx
 获取我的瓶子的列表：GET /api/?_action=getMyBottles[&id=xxx] **【id 不写则默认为 9999999】**
 给某个瓶子点赞：GET /api/?_action=getLike&id=xxx **【需要已登录】 成功code返回0 失败返回1**
-获取自己的未读消息 GET　/api/?_action=getMessage　　**【需要已登录】**
+获取自己的未读消息 GET　/api/?_action=getMessage  **【需要已登录】**
 扔一个新瓶子：POST /api/?_action=postBottle，{ content, secret, gender } **【需要已登录】**
 回复一个瓶子：POST /api/?_action=postComment，{ postId, content, secret, gender } **【需要已登录】**
 
@@ -17,6 +17,7 @@ qq空间分享api
 https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={{完整的地址列表}}&title={{标题}}&desc={{要发送的动态的文字}}&summary={{内容摘要}}&site={{显示的来源}}&pics={{完整的图片地址}}
 
 
+```sql
 CREATE TABLE `info`.`topic` (
   `id` INT(11) UNSIGNED NOT NULL,
   `topicName` VARCHAR(20) NOT NULL,
@@ -64,3 +65,4 @@ CHANGE COLUMN `islike` `islike` INT(11) UNSIGNED NOT NULL DEFAULT '0' ,
 CHANGE COLUMN `top` `top` INT(11) UNSIGNED NOT NULL DEFAULT '0' ,
 CHANGE COLUMN `date` `date` INT(11) UNSIGNED NOT NULL ,
 ADD COLUMN `softDelete` INT(11) UNSIGNED NOT NULL AFTER `more`;
+```
