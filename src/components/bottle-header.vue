@@ -3,7 +3,7 @@
         <div class="back clickable" @click="historyBack" :class="{ 'hide': isAtRoot }">
             <i class="fa fa-chevron-left"></i>
         </div>
-        <h1>{{title}}</h1>
+        <h1 @dblclick="goToTop">{{title}}</h1>
     </header>
 </template>
 
@@ -22,6 +22,21 @@ export default {
     methods: {
         historyBack: function () {
             this.$router.go(-1);
+        },
+        goToTop: function () {
+            if (window.requestAnimationFrame) {
+                const anime = () => {
+                    if (document.body.scrollTop > 1) {
+                        document.body.scrollTop /= 1.2;
+                        requestAnimationFrame(anime);
+                    } else {
+                        document.body.scrollTop = 0;
+                    }
+                };
+                requestAnimationFrame(anime);
+            } else {
+                document.body.scrollTop = 0;
+            }
         }
     },
     mounted: function () {
@@ -61,6 +76,8 @@ export default {
     display: none;
 }
 .bottle-header h1 {
+    -webkit-user-select: none;
+    user-select: none;
     color: #FFF;
     font-size: 16px;
     font-weight: normal;
