@@ -10,7 +10,6 @@ $PAGE_SIZE = 15;
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : $THE_LARGEST_ID;
 
-$user = SSO::getUser();
 $userId = ($user && isset($user['uid'])) ? $user['uid'] : 0;
 $sql = "SELECT
             d.id, d.content, d.gender, d.secret, d.avatar, d.userId,
