@@ -56,7 +56,7 @@ export default {
         window.eventBus.$on('hideNonImportants', hide => {
             this.hide = hide;
         });
-        this.axios.get('/bottle/api/?_action=getUser').then(response => {
+        this.axios.get('/bottle/api/getUser').then(response => {
             window.bottle.user = response.data.data || null;
             window.bottle.ssoUrl = '/sso/?page=login&redirect_uri=' + btoa(location.pathname);
             this.gotUser = true;

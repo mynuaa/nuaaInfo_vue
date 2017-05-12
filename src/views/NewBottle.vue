@@ -65,7 +65,7 @@ export default {
       if (this.topic && this.topic.value !== '') {
         this.bottle.content = `#${this.topic.value}# ${this.bottle.content}`;
       }
-      this.axios.post('/bottle/api/?_action=postBottle', this.bottle).then(response => {
+      this.axios.post('/bottle/api/postBottle', this.bottle).then(response => {
         window.eventBus.$emit('indexRefresh');
         this.$router.push('/');
       });

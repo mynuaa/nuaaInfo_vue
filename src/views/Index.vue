@@ -36,9 +36,19 @@ export default {
       this.lastId = 9999999,
       this.data = [];
       this.getBottles();
+    },
+    init: function (to = this.$route.name) {
+      window.eventBus.$emit('hideNonImportants', false);
+      if (to === 'index') {
+        window.eventBus.$emit('titleChange', '首页');
+        document.body.className = '';
+      } else {
+        document.body.className = 'no-scroll';
+      }
     }
   },
   mounted() {
+    this.init();
     window.eventBus.$on('hideNonImportants', hide => {
       this.hideNonImportants = hide;
     });
@@ -47,13 +57,7 @@ export default {
     });
   },
   beforeRouteUpdate(to, from, next) {
-    window.eventBus.$emit('hideNonImportants', false);
-    if (this.$route.name !== 'index') {
-      window.eventBus.$emit('titleChange', '首页');
-      document.body.className = '';
-    } else {
-      document.body.className = 'no-scroll';
-    }
+    this.init(to.name);
     next();
   }
 }

@@ -28,13 +28,13 @@ export default {
   },
   methods: {
     getBottle: function () {
-      this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then(response => {
+      this.axios.get('/bottle/api/getBottle?id='+this.$route.params.id).then(response => {
         this.data = response.data.data;
         this.newComment.postId = this.data.id;
       });
     },
     getComments: function () {
-      this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then(response => {
+      this.axios.get('/bottle/api/getComments?id='+this.$route.params.id).then(response => {
         this.comments = response.data.data;
       });
     },
@@ -43,7 +43,7 @@ export default {
         alert('还没有写内容哦……');
         return;
       }
-      this.axios.post('/bottle/api/?_action=postComment', this.newComment).then(response => {
+      this.axios.post('/bottle/api/postComment', this.newComment).then(response => {
         this.newComment.content = '';
         this.getComments();
       });

@@ -1,6 +1,10 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
+function getHost() {
+  return process.env['host'] || 'http://my.nuaa.edu.cn';
+}
+
 module.exports = {
   build: {
     env: require('./prod.env'),
@@ -29,19 +33,19 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/bottle/api': {
-        target: 'http://my.nuaa.edu.cn',
+        target: getHost(),
         changeOrigin: true
       },
       '/sso/': {
-        target: 'http://my.nuaa.edu.cn',
+        target: getHost(),
         changeOrigin: true
       },
       '/ucenter': {
-        target: 'http://my.nuaa.edu.cn',
+        target: getHost(),
         changeOrigin: true
       },
       '/bottle/static': {
-        target: 'http://my.nuaa.edu.cn',
+        target: getHost(),
         changeOrigin: true
       }
     },

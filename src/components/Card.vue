@@ -50,7 +50,7 @@ export default {
         return false;
       }
       if (window.bottle.userLogged()) {
-        this.axios.get(`/bottle/api/?_action=getLike&id=${this.item.id}`).then(response => {
+        this.axios.get(`/bottle/api/getLike?id=${this.item.id}`).then(response => {
           this.item.likeCount++;
           this.item.isLiked = true;
         });

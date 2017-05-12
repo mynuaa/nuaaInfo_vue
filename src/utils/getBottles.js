@@ -1,6 +1,6 @@
 export default function getBottles(action, topic = null) {
     this.loadingStatus = 'loading';
-    let url = `/bottle/api/?_action=${action}&id=${this.lastId}`;
+    let url = `/bottle/api/${action}?id=${this.lastId}`;
     if (topic) {
         url += `&topic=${topic}`;
     }
