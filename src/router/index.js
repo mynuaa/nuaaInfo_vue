@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Index from '@/views/Index';
-import NewBottle from '@/views/NewBottle';
-import Details from '@/views/Details';
-import Topics from '@/views/Topics';
-import Messages from '@/views/Messages';
-import MyBottles from '@/views/MyBottles';
+import Index from 'views/Index';
+import NewBottle from 'views/NewBottle';
+import Details from 'views/Details';
+import Topics from 'views/Topics';
+import Messages from 'views/Messages';
+import MyBottles from 'views/MyBottles';
 
 Vue.use(Router);
 

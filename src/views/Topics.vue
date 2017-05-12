@@ -1,24 +1,24 @@
 <template>
   <div class="topics index-children">
     <div
-      v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
+      v-infinite-scroll="getBottles"
+      :infinite-scroll-disabled="loadingStatus === 'loading'"
       infinite-scroll-distance="10">
       <card v-for="item in data" :item="item" :key="item.id" class="pointer"></card>
     </div>
+    <loading-placeholder
+      :status="loadingStatus"
+      :retry="getBottles">
+    </loading-placeholder>
   </div>
 </template>
 
 <script>
-import Card from './Card'
-
+import getBottles from 'utils/getBottles';
 export default {
-  components: {
-    Card
-  },
   data () {
     return {
-      loading: false,
+      loadingStatus: '',
       data: [],
       lastId: 999999,
       show: true,
@@ -26,24 +26,8 @@ export default {
     }
   },
   methods: {
-    getBottles: function (id=null) {
-      let url;
-      if(id === null)
-        url = '/bottle/api/?_action=getTopic&topic=' + this.$route.params.topic;
-      else
-        url = '/bottle/api/?_action=getTopic&topic=' + this.$route.params.topic + '&id=' + id;
-      this.axios.get(url).then((response) => {
-        if(response.data.data === undefined)
-          return
-
-        this.data = this.data.concat(response.data.data);
-        this.lastId = this.data[this.data.length-1].id;
-        this.loading = false;
-      })
-    },
-    loadMore: function () {
-      this.loading = true;
-      this.getBottles(this.lastId);
+    getBottles: function () {
+      getBottles.bind(this)('getTopic', this.$route.params.topic);
     }
   },
   beforeUpdate() {
@@ -53,7 +37,7 @@ export default {
       this.loading = false;
       this.lastId = 999999;
       this.topic = this.$route.params.topic;
-      this.loadMore();
+      this.getBottles();
     }
   }
 }

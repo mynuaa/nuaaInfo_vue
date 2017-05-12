@@ -3,28 +3,25 @@
     <router-view></router-view>
     <div
       class="infinite-scroll"
-      :class="{ 'hidden': $route.name !== 'index' }"
-      v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10">
+      v-infinite-scroll="getBottles"
+      :infinite-scroll-disabled="loadingStatus === 'loading'"
+      infinite-scroll-distance="100">
       <card v-for="item in data" :item="item" :key="item.id" class="pointer"></card>
     </div>
+    <loading-placeholder
+      :status="loadingStatus"
+      :retry="getBottles">
+    </loading-placeholder>
     <palette-button :class="{ 'hide': hideNonImportants || $route.name !== 'index' }"></palette-button>
   </div>
 </template>
 
 <script>
-import PaletteButton from '@/components/PaletteButton'
-import Card from './Card'
-
+import getBottles from 'utils/getBottles';
 export default {
-  components: {
-    PaletteButton,
-    Card
-  },
   data () {
     return {
-      loading: false,
+      loadingStatus: '',
       data: [],
       lastId: 9999999,
       oldScreenY: 0,
@@ -32,25 +29,13 @@ export default {
     }
   },
   methods: {
-    getBottles: function (id=null) {
-      let url;
-      url = id ? `/bottle/api/?_action=getMoreBottles&id=${id}` : '/bottle/api/?_action=getMoreBottles';
-      this.axios.get(url).then(response => {
-        if (response.data.data) {
-          this.data = this.data.concat(response.data.data);
-          this.lastId = this.data[this.data.length-1].id;
-          this.loading = false;
-        }
-      })
-    },
-    loadMore: function () {
-      this.loading = true;
-      this.getBottles(this.lastId);
+    getBottles: function () {
+      getBottles.bind(this)('getMoreBottles');
     },
     refresh: function () {
       this.lastId = 9999999,
       this.data = [];
-      this.loadMore();
+      this.getBottles();
     }
   },
   mounted() {
@@ -85,10 +70,8 @@ body.no-scroll {
     right: 0;
     bottom: 0;
     padding: 60px 0 50px;
+    background: #F1F1F1;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-.hidden {
-    visibility: hidden;
+    z-index: 2;
 }
 </style>

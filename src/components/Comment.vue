@@ -26,6 +26,9 @@ export default {
     margin-bottom: 10px;
     border-bottom: 1px solid #F1F1F1;
 }
+.comment:last-child {
+    border-bottom: none;
+}
 .comment .header span{
     color: black;
 }

@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "font-awesome": "^4.7.0",
+    "lodash.debounce": "^4.0.8",
     "mint-ui": "^2.2.5",
     "moment": "^2.18.1",
     "node-sass": "^4.5.2",

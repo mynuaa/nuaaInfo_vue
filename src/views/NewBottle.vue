@@ -25,14 +25,7 @@
 </template>
 
 <script>
-import DaSwitch from '@/components/DaSwitch'
-import RsSelect from '@/components/rs-select'
-
 export default {
-  components: {
-    DaSwitch,
-    RsSelect
-  },
   data() {
     return {
       bottle: {

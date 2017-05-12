@@ -139,6 +139,8 @@ export default {
 .card .content a {
     margin: 3px 0;
     min-height: 20px;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 .card .content p:empty,
 .card .content a:empty {

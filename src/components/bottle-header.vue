@@ -57,8 +57,8 @@ export default {
     line-height: 50px;
     background: rgba(66, 185, 131, 0.95);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    z-index:1;
     transition: all 0.5s;
+    z-index: 3;
 }
 .bottle-header.hide {
     top: -60px;

@@ -13,55 +13,48 @@
 </template>
 
 <script>
-  import Card from '@/views/Card'
-  import Comment from '@/views/Comment'
-
-  export default {
-    components: {
-      Card,
-      Comment
-    },
-    data () {
-      return {
-        data: {},
-        comments: [],
-        newComment: {
-          postId: 0,
-          content: '',
-          secret: true,
-          gender: 1,
-        }
+export default {
+  data () {
+    return {
+      data: {},
+      comments: [],
+      newComment: {
+        postId: 0,
+        content: '',
+        secret: true,
+        gender: 1,
       }
-    },
-    methods: {
-      getBottle: function () {
-        this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then(response => {
-          this.data = response.data.data;
-          this.newComment.postId = this.data.id;
-        });
-      },
-      getComments: function () {
-        this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then(response => {
-          this.comments = response.data.data;
-        });
-      },
-      sendComment: function () {
-        if(this.newComment.content === '') {
-          alert('还没有写内容哦……');
-          return;
-        }
-        this.axios.post('/bottle/api/?_action=postComment', this.newComment).then(response => {
-          this.newComment.content = '';
-          this.getComments();
-        });
-      }
-    },
-    mounted() {
-      window.eventBus.$emit('titleChange', '一个有趣的瓶子');
-      this.getBottle();
-      this.getComments();
     }
+  },
+  methods: {
+    getBottle: function () {
+      this.axios.get('/bottle/api/?_action=getBottle&id='+this.$route.params.id).then(response => {
+        this.data = response.data.data;
+        this.newComment.postId = this.data.id;
+      });
+    },
+    getComments: function () {
+      this.axios.get('/bottle/api/?_action=getComments&id='+this.$route.params.id).then(response => {
+        this.comments = response.data.data;
+      });
+    },
+    sendComment: function () {
+      if(this.newComment.content === '') {
+        alert('还没有写内容哦……');
+        return;
+      }
+      this.axios.post('/bottle/api/?_action=postComment', this.newComment).then(response => {
+        this.newComment.content = '';
+        this.getComments();
+      });
+    }
+  },
+  mounted() {
+    window.eventBus.$emit('titleChange', '一个有趣的瓶子');
+    this.getBottle();
+    this.getComments();
   }
+}
 </script>
 
 <style>
@@ -98,5 +91,8 @@
     line-height: 30px;
     font-size: 20px;
     text-align: center;
+}
+.details .comments {
+    overflow: hidden;
 }
 </style>

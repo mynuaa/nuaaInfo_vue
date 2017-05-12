@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
 export default {
     data() {
         return {
@@ -24,16 +25,22 @@ export default {
         },
         handleTouchmove: function (event) {
             const move = event.touches[0].screenY - this.oldScreenY;
-            if (move > 30 || window.scrollY < 50) {
+            if (move > 30) {
                 window.eventBus.$emit('hideNonImportants', false);
                 this.oldScreenY = event.touches[0].screenY;
             } else if (move < -30) {
                 window.eventBus.$emit('hideNonImportants', true);
                 this.oldScreenY = event.touches[0].screenY;
             }
+        },
+        handleScroll: function () {
+            if (window.scrollY < 50) {
+                window.eventBus.$emit('hideNonImportants', false);
+            }
         }
     },
     mounted() {
+        window.addEventListener('scroll', debounce(this.handleScroll, 200));
         this.axios.defaults.withCredentials = true;
         window.bottle = {
             user: null,
@@ -61,6 +68,15 @@ export default {
 <style>
 * {
     -webkit-tap-highlight-color: transparent;
+}
+@-ms-viewport {
+    width: 100%;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+html {
+    height: 100%;
 }
 body {
     font-family: 'PingFang SC', 'Helvetica Neue', 'Hiragino Sans GB', 'Segoe UI', 'Microsoft YaHei UI', '微软雅黑', sans-serif;

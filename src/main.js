@@ -8,9 +8,14 @@ import Moment from 'moment';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import vSelect from 'vue-select';
-import RsSelect from '@/components/rs-select';
-import BottleHeader from '@/components/bottle-header';
-import BottleFooter from '@/components/bottle-footer';
+import DaSwitch from 'components/DaSwitch';
+import RsSelect from 'components/rs-select';
+import BottleHeader from 'components/bottle-header';
+import BottleFooter from 'components/bottle-footer';
+import LoadingPlaceholder from 'components/loading-placeholder';
+import PaletteButton from 'components/PaletteButton';
+import Card from 'components/Card';
+import Comment from 'components/Comment';
 
 import 'font-awesome/css/font-awesome.min.css';
 import 'mint-ui/lib/style.min.css';
@@ -24,8 +29,13 @@ Vue.config.productionTip = false;
 
 Vue.component('v-select', vSelect);
 Vue.component('rs-select', RsSelect);
+Vue.component('da-switch', DaSwitch);
 Vue.component('bottle-header', BottleHeader);
 Vue.component('bottle-footer', BottleFooter);
+Vue.component('loading-placeholder', LoadingPlaceholder);
+Vue.component('card', Card);
+Vue.component('comment', Comment);
+Vue.component('palette-button', PaletteButton);
 
 Vue.filter('fromNow', function (value) {
     return Moment(value, 'X').fromNow();
