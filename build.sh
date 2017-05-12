@@ -14,7 +14,7 @@ echo "Deploying..."
 if [ -d dist ] && [ $result == 0 ]; then
     echo "Replacing dist..."
     rm -rf dist
+    mv .tmp dist
 fi
-mv .tmp dist
 
 echo "Build finished."

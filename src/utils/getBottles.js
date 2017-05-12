@@ -8,7 +8,11 @@ export default function getBottles(action, topic = null) {
         if (response.data.data) {
             this.data = this.data.concat(response.data.data);
             this.lastId = this.data[this.data.length - 1].id;
-            this.loadingStatus = '';
+            if (response.data.data.length < 15) {
+                this.loadingStatus = 'finish';
+            } else {
+                this.loadingStatus = '';
+            }
         } else {
             this.loadingStatus = 'finish';
         }
