@@ -8,12 +8,12 @@
     <div class="da-form nameless">
       <div>
         <span v-if="bottle.secret">我要匿名</span>
-        <span v-else="bottle.secret">我要实名</span>
+        <span v-else>我要实名</span>
         <da-switch v-model="bottle.secret"></da-switch>
       </div>
       <div>
         <span v-if="bottle.gender">我是汉子</span>
-        <span v-else="bottle.gender">我是妹子</span>
+        <span v-else>我是妹子</span>
         <da-switch v-model="bottle.gender"></da-switch>
       </div>
     </div>
@@ -36,7 +36,11 @@ export default {
       topics: [{
         label: '每日一瓶',
         value: '每日一瓶'
-      }, {
+      },{
+        label: '五四评优',
+        value: '五四评优'
+      },
+      {
         label: '你有我没有',
         value: '你有我没有'
       }, {
