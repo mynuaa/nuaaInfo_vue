@@ -15,14 +15,14 @@
     "lodash.debounce": "^4.0.8",
     "mint-ui": "^2.2.5",
     "moment": "^2.18.1",
-    "node-sass": "^4.5.2",
-    "sass-loader": "^6.0.3",
     "vue": "^2.2.6",
     "vue-axios": "^2.0.2",
     "vue-router": "^2.3.1",
     "vue-select": "^2.2.0"
   },
   "devDependencies": {
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
     "autoprefixer": "^6.7.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
@@ -65,6 +65,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "not ie <= 10"
   ]
 }
